@@ -11,6 +11,8 @@ public class Usuario implements Serializable {
 	private String contraseña;
 	private String apellido;
 	private String nombre;
+	private EstadoUsuario estado;
+	private Role role;
 
 	public Usuario() {
 	}
@@ -55,4 +57,19 @@ public class Usuario implements Serializable {
 		this.contraseña = contraseña;
 	}
 
+	public EstadoUsuario getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoUsuario estado) {
+		this.estado = estado;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 }

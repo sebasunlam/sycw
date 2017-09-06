@@ -111,3 +111,4 @@ local.properties
 db.lck
 db.log
 db.properties
+db.script

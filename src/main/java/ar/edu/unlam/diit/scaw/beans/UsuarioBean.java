@@ -56,7 +56,7 @@ public class UsuarioBean implements Serializable {
 		
 		Usuario usuario = new Usuario();
 		usuario.setEmail(this.eMail);
-		usuario.setContraseña(this.contraseña);		
+		usuario.setContraseña(this.contraseña);
 		
 		Usuario logueado = service.login(usuario);		
 		if(logueado!=null) 

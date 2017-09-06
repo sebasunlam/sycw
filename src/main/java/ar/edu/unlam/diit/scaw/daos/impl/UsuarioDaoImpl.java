@@ -23,11 +23,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			conn = (dataSource.dataSource()).getConnection();
 			Statement query = conn.createStatement();
 			
-			String sql = "SELECT * FROM Usuarios WHERE eMail = '"+ usuario.getEmail() + "' AND contraseña = '"+ usuario.getContraseña() +"' AND idEstadoUsuario = 2";
+			String sql = "SELECT * FROM Usuarios WHERE eMail = '"+ usuario.getEmail() + "' AND password = '"+ usuario.getContraseña() +"' AND idEstadoUsuario = 2";
 			ResultSet rs = query.executeQuery(sql);
 			while(rs.next()){
 				String eMail = rs.getString("eMail");
-				String contraseña = rs.getString("contraseña");
+				String contraseña = rs.getString("password");
 				Integer id = rs.getInt("id");
 				String apellido = rs.getString("apellido");
 				String nombre = rs.getString("nombre");
@@ -62,7 +62,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			while (rs.next()) {
 			  
 				String eMail = rs.getString("eMail");
-				String contraseña = rs.getString("contraseña");
+				String contraseña = rs.getString("password");
 				Integer id = rs.getInt("id");
 				String apellido = rs.getString("apellido");
 				String nombre = rs.getString("nombre");
