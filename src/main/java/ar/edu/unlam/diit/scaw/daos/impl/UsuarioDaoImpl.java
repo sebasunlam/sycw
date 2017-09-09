@@ -95,20 +95,18 @@ public class UsuarioDaoImpl implements UsuarioDao {
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            Statement query;
-
-            query = conn.createStatement();
-            query.executeUpdate("INSERT INTO Usuarios VALUES(" + usuario.getId() + ", '" + usuario.getEmail() + "', '" + usuario.getContraseña() + "', '" + usuario.getApellido() + "', '" + usuario.getNombre() + "', 1);");
-
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Usuarios (id,email,password,apellido,nombre,idestadousuario)VALUES(?, ?, ?, ?, ?, 1)");
             stmt.setInt(1, usuario.getId());
             stmt.setString(2, usuario.getEmail());
             stmt.setString(3, usuario.getContraseña());
             stmt.setString(4, usuario.getApellido());
             stmt.setString(5, usuario.getNombre());
+
+            stmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }
