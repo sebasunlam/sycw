@@ -6,8 +6,11 @@ import ar.edu.unlam.diit.scaw.entities.Usuario;
 
 public interface UsuarioDao {
 
-	public List<Usuario> findAll();
-	public Usuario login(Usuario usuario);
-	public void save(Usuario usuario);
+	Usuario get(int usuarioId);
+	List<Usuario> findAll();
+	Usuario login(Usuario usuario);
+	void save(Usuario usuario);
+	void update(Usuario usuario);
+	void delete(int usuarioId);
 
 }

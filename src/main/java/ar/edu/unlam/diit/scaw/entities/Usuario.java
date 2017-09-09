@@ -11,6 +11,7 @@ public class Usuario implements Serializable {
 	private String contraseña;
 	private String apellido;
 	private String nombre;
+	private Integer estadoId;
 	private EstadoUsuario estado;
 	private Role role;
 
@@ -71,5 +72,13 @@ public class Usuario implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Integer getEstadoId() {
+		return estadoId;
+	}
+
+	public void setEstadoId(Integer estadoId) {
+		this.estadoId = estadoId;
 	}
 }

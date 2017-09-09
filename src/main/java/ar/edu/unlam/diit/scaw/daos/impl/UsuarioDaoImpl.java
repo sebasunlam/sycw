@@ -52,6 +52,39 @@ public class UsuarioDaoImpl implements UsuarioDao {
     }
 
     @Override
+    public Usuario get(int usuarioId) {
+        Usuario usuario = null;
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Usuarios WHERE id = ?");
+            stmt.setInt(1, usuarioId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                usuario = new Usuario();
+
+                usuario.setEmail(rs.getString("eMail"));
+                usuario.setContraseña(rs.getString("password"));
+                usuario.setId(rs.getInt("id"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setEstadoId(rs.getInt("estadoId"));
+
+            }
+
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
+
+    @Override
     public List<Usuario> findAll() {
         List<Usuario> ll = new LinkedList<Usuario>();
 
@@ -62,7 +95,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
             query = conn.createStatement();
 
-            ResultSet rs = query.executeQuery("SELECT * FROM Usuarios WHERE idEstadoUsuario = 2");
+            ResultSet rs = query.executeQuery("SELECT * FROM Usuarios");
 
             while (rs.next()) {
 
@@ -101,6 +134,44 @@ public class UsuarioDaoImpl implements UsuarioDao {
             stmt.setString(3, usuario.getContraseña());
             stmt.setString(4, usuario.getApellido());
             stmt.setString(5, usuario.getNombre());
+
+            stmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void update(Usuario usuario) {
+
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Usuarios SET email=?,password=?,apellido=?,nombre=?,idestadousuario=? WHERE id=?");
+
+            stmt.setString(1, usuario.getEmail());
+            stmt.setString(2, usuario.getContraseña());
+            stmt.setString(3, usuario.getApellido());
+            stmt.setString(4, usuario.getNombre());
+            stmt.setInt(5, usuario.getEstadoId());
+            stmt.setInt(6, usuario.getId());
+
+            stmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(int usuarioId) {
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM Usuarios WHERE id=?");
+            stmt.setInt(1, usuarioId);
 
             stmt.executeUpdate();
             conn.close();

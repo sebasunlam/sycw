@@ -108,6 +108,7 @@ local.properties
 !.vscode/extensions.json
 
 /.idea/
+
 db.lck
 db.log
 db.properties
