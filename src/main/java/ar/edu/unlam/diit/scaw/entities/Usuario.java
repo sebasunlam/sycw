@@ -1,8 +1,11 @@
 package ar.edu.unlam.diit.scaw.entities;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
 import java.util.List;
-
+@ManagedBean(name = "usuario",eager = true)
+@RequestScoped
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;

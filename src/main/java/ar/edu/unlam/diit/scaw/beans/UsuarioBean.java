@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
 import ar.edu.unlam.diit.scaw.services.impl.UsuarioServiceImpl;
@@ -15,11 +17,8 @@ public class UsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String eMail = null;
-	private String contraseña = null;
-	private Integer id = null;
-	private String apellido = null;
-	private String nombre = null;
+	@ManagedProperty(value = "#{usuario}")
+	private Usuario usuario = null;
 	
 	
 	UsuarioService service;
@@ -29,20 +28,14 @@ public class UsuarioBean implements Serializable {
 		service = (UsuarioService) new UsuarioServiceImpl();
 	}
 	
-	public UsuarioBean(String eMail, String contraseña, Integer id, String apellido, String nombre) {
-		super();
-		this.eMail = eMail;
-		this.contraseña = contraseña;
-		this.id = id;
-		this.apellido = apellido;
-		this.nombre = nombre;
-	}
+//	public UsuarioBean(Usuario usuario) {
+//		super();
+//		this.usuario = usuario;
+//	}
 	
 	public String save() {
-		
-		Usuario person = buildUsuario();
-		
-		service.save(person);
+
+		service.save(this.usuario);
 		
 		return "welcome";
 	}
@@ -53,12 +46,7 @@ public class UsuarioBean implements Serializable {
 	}
 	
 	public String login(){
-		
-		Usuario usuario = new Usuario();
-		usuario.setEmail(this.eMail);
-		usuario.setContraseña(this.contraseña);
-		
-		Usuario logueado = service.login(usuario);		
+		Usuario logueado = service.login(this.usuario);
 		if(logueado!=null) 
 		{
 			return "welcome";			
@@ -69,57 +57,17 @@ public class UsuarioBean implements Serializable {
 		}		
 	}	
 
-	private Usuario buildUsuario() {
-		Usuario usuario = new Usuario();
-		
-		usuario.setEmail(this.eMail);
-		usuario.setContraseña(contraseña);
-		usuario.setId(id);
-		usuario.setApellido(this.apellido);
-		usuario.setNombre(this.nombre);
-		
-		return usuario;
-	}
-
-	public String getEmail() {
-		return eMail;
-	}
-
-	public void setEmail(String email) {
-		this.eMail = email;
-	}
-
-	public String getContraseña() {
-		return contraseña;
-	}
-
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+//	private Usuario buildUsuario() {
+//		Usuario usuario = new Usuario();
+//
+//		usuario.setEmail(this.eMail);
+//		usuario.setContraseña(contraseña);
+//		usuario.setId(id);
+//		usuario.setApellido(this.apellido);
+//		usuario.setNombre(this.nombre);
+//
+//		return usuario;
+//	}
 
 	public UsuarioService getService() {
 		return service;
@@ -133,5 +81,11 @@ public class UsuarioBean implements Serializable {
 		return serialVersionUID;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }
