@@ -113,5 +113,11 @@ db.lck
 db.log
 db.properties
 db.script
+.log
+.properties
+.script
+
+.project
+.classpath
 
 target
