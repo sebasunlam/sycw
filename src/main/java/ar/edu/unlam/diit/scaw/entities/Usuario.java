@@ -1,6 +1,7 @@
 package ar.edu.unlam.diit.scaw.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Usuario implements Serializable {
 
@@ -13,7 +14,7 @@ public class Usuario implements Serializable {
 	private String nombre;
 	private Integer estadoId;
 	private EstadoUsuario estado;
-	private Role role;
+	private List<Role> roles;
 
 	public Usuario() {
 	}
@@ -66,12 +67,12 @@ public class Usuario implements Serializable {
 		this.estado = estado;
 	}
 
-	public Role getRole() {
-		return role;
+	public List<Role> getRole() {
+		return roles;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRole(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	public Integer getEstadoId() {

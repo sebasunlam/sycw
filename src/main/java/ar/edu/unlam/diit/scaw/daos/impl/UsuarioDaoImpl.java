@@ -7,6 +7,7 @@ import java.util.List;
 
 import ar.edu.unlam.diit.scaw.configs.HsqlDataSource;
 import ar.edu.unlam.diit.scaw.daos.UsuarioDao;
+import ar.edu.unlam.diit.scaw.entities.Role;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 
 public class UsuarioDaoImpl implements UsuarioDao {
@@ -33,6 +34,9 @@ public class UsuarioDaoImpl implements UsuarioDao {
                 Integer id = rs.getInt("id");
                 String apellido = rs.getString("apellido");
                 String nombre = rs.getString("nombre");
+                Integer estadoId = rs.getInt("idEstadoUsuario");
+
+
 
                 logueado = new Usuario();
                 logueado.setEmail(eMail);
@@ -40,6 +44,28 @@ public class UsuarioDaoImpl implements UsuarioDao {
                 logueado.setId(id);
                 logueado.setApellido(apellido);
                 logueado.setNombre(nombre);
+                logueado.setEstadoId(estadoId);
+
+                stmt = conn.prepareStatement("SELECT idrol FROM rolesusuarios WHERE idusuario =?");
+                stmt.setInt(1, id);
+                ResultSet rsRolesUsuario = stmt.executeQuery();
+
+                List<Role> roles = new LinkedList<>();
+
+                while (rsRolesUsuario.next()){
+                    stmt = conn.prepareStatement("SELECT id,descripcion FROM roles WHERE id =?");
+                    stmt.setInt(1,rsRolesUsuario.getInt("idrol"));
+
+                    ResultSet rsRole = stmt.executeQuery();
+                    while (rsRole.next()){
+                        Role role = new Role();
+                        role.setId(rsRole.getInt("id"));
+                        role.setDescripcion(rsRole.getString("descripcion"));
+                        roles.add(role);
+                    }
+                }
+
+                logueado.setRole(roles);
             }
 
             conn.close();
@@ -71,7 +97,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
                 usuario.setId(rs.getInt("id"));
                 usuario.setApellido(rs.getString("apellido"));
                 usuario.setNombre(rs.getString("nombre"));
-                usuario.setEstadoId(rs.getInt("estadoId"));
+                usuario.setEstadoId(rs.getInt("idEstadoUsuario"));
 
             }
 

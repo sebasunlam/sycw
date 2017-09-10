@@ -9,8 +9,10 @@ public class Materia implements Serializable {
 
     private Integer id;
     private String nombre;
+    private Integer estadoId;
     private EstadoMateria estado;
-    private List<Usuario> docentes;
+    private Integer docenteId;
+    private Usuario docenteTitular;
     private List<Usuario> alumnos;
     private List<Examen> examenes;
 
@@ -38,14 +40,6 @@ public class Materia implements Serializable {
         this.estado = estado;
     }
 
-    public List<Usuario> getDocentes() {
-        return docentes;
-    }
-
-    public void setDocentes(List<Usuario> docentes) {
-        this.docentes = docentes;
-    }
-
     public List<Usuario> getAlumnos() {
         return alumnos;
     }
@@ -60,6 +54,30 @@ public class Materia implements Serializable {
 
     public void setExamenes(List<Examen> examenes) {
         this.examenes = examenes;
+    }
+
+    public Integer getEstadoId() {
+        return estadoId;
+    }
+
+    public void setEstadoId(Integer estadoId) {
+        this.estadoId = estadoId;
+    }
+
+    public Usuario getDocenteTitular() {
+        return docenteTitular;
+    }
+
+    public void setDocenteTitular(Usuario docenteTitular) {
+        this.docenteTitular = docenteTitular;
+    }
+
+    public Integer getDocenteId() {
+        return docenteId;
+    }
+
+    public void setDocenteId(Integer docenteId) {
+        this.docenteId = docenteId;
     }
 }
 

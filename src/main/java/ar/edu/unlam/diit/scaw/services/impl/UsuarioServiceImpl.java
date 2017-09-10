@@ -2,6 +2,8 @@ package ar.edu.unlam.diit.scaw.services.impl;
 
 import java.util.List;
 
+import ar.edu.unlam.diit.scaw.daos.EstadoUsuarioDao;
+import ar.edu.unlam.diit.scaw.daos.impl.EstadoUsuarioDaoImpl;
 import ar.edu.unlam.diit.scaw.daos.impl.UsuarioDaoImpl;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
@@ -9,9 +11,11 @@ import ar.edu.unlam.diit.scaw.services.UsuarioService;
 public class UsuarioServiceImpl implements UsuarioService {
 
     UsuarioDaoImpl usuarioHsql;
+    EstadoUsuarioDao estadoUsuarioDao;
 
     public UsuarioServiceImpl() {
         usuarioHsql = new UsuarioDaoImpl();
+        estadoUsuarioDao = new EstadoUsuarioDaoImpl();
     }
 
     @Override
@@ -49,7 +53,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario get(int usuarioId) {
-       return usuarioHsql.get(usuarioId);
+
+        Usuario usuario = usuarioHsql.get(usuarioId);
+
+        usuario.setEstado(estadoUsuarioDao.get(usuario.getEstadoId()));
+        //todo: Se deben agregar las clases dependientes como materia y demas
+        return usuario;
     }
 
     @Override
