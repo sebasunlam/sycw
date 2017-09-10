@@ -10,7 +10,9 @@
 
 <h:head>
 	<title>UNLAM - Sistema de evaluación</title>
-	<link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>
+	<ui:insert name="header" >
+		<ui:include src="/templates/header.xhtml" />
+	</ui:insert>
 </h:head>
 
 <h:body>
@@ -41,9 +43,10 @@
 			</h:panelGrid>
 		</h:form>
 	</div>
-	<script src="/webjars/jquery/1.11.1/jquery.js" type=""></script>
-	<script src="/webjars/bootstrap/3.3.6/js/bootstrap.js" type=""></script>
 
+	<ui:insert name="header" >
+		<ui:include src="/templates/scripts.xhtml" />
+	</ui:insert>
 </h:body>
 
 </html>
