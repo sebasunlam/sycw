@@ -16,6 +16,7 @@ public class Usuario implements Serializable {
 	private String contraseña;
 	private String apellido;
 	private String nombre;
+	private String repetirPassword;
 	private Integer estadoId;
 	private EstadoUsuario estado;
 	@ManagedProperty(value = "#{roles}")
@@ -86,5 +87,13 @@ public class Usuario implements Serializable {
 
 	public void setEstadoId(Integer estadoId) {
 		this.estadoId = estadoId;
+	}
+
+	public String getRepetirPassword() {
+		return repetirPassword;
+	}
+
+	public void setRepetirPassword(String repetirPassword) {
+		this.repetirPassword = repetirPassword;
 	}
 }

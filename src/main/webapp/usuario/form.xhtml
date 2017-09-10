@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<ui:component>
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <h:inputText value="#{usuarioController.usuario.nombre}" id="nombre"></h:inputText>
+    </div>
+    <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <h:inputText value="#{usuarioController.usuario.apellido}" id="apellido"></h:inputText>
+    </div>
+    <div class="form-group">
+        <label for="email">E-Mail</label>
+        <h:inputText value="#{usuarioController.usuario.email}" id="email"></h:inputText>
+    </div>
+    <div class="form-group">
+        <label for="password">Contraseña</label>
+        <h:inputSecret value="#{usuarioController.usuario.contraseña}" id="password"></h:inputSecret>
+    </div>
+    <div class="form-group">
+        <label for="repeat">Repetir Contraseña</label>
+        <h:inputSecret value="#{usuarioController.usuario.repetirPassword}" id="repeat"></h:inputSecret>
+    </div>
+</ui:component>
+</body>
+</html>

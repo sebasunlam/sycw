@@ -27,9 +27,9 @@ public class UsuarioController implements Serializable {
 		usuarioService = new UsuarioServiceImpl();
 	}
 	
-	public String save(Usuario usuario) {
+	public String save() {
 
-		usuarioService.save(usuario);
+		usuarioService.save(this.usuario);
 		
 		return "usuario/save";
 	}
@@ -51,9 +51,9 @@ public class UsuarioController implements Serializable {
 		}		
 	}
 
-	public String update(Usuario usuario){
+	public String update(){
 
-		usuarioService.update(usuario);
+		usuarioService.update(this.usuario);
 
 		return "usuario/update";
 	}
@@ -84,6 +84,15 @@ public class UsuarioController implements Serializable {
 	public String delete(Integer usuarioId){
 		usuarioService.delete(usuarioId);
 		return "usuario/index";
+	}
+
+	public String get(Integer usuarioId,String path){
+		this.usuario = usuarioService.get(usuarioId);
+
+		if(usuario == null){
+			return "notfound";
+		}
+		return path;
 	}
 
 	public static long getSerialversionuid() {
