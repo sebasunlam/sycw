@@ -1,6 +1,7 @@
 package ar.edu.unlam.diit.scaw.entities;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Usuario implements Serializable {
 	private String nombre;
 	private Integer estadoId;
 	private EstadoUsuario estado;
+	@ManagedProperty(value = "#{roles}")
 	private List<Role> roles;
 
 	public Usuario() {

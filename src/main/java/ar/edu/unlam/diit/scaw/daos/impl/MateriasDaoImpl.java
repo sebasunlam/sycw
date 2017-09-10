@@ -22,11 +22,10 @@ public class MateriasDaoImpl implements MateriasDao{
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Materias (nombre,idestadomateria,iddocentetitular)VALUES(?, ?,?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Materias (nombre,idestadomateria,iddocentetitular)VALUES(?, 1,?)");
 
             stmt.setString(1, materia.getNombre());
-            stmt.setInt(2, materia.getEstadoId());
-            stmt.setInt(3, materia.getDocenteId());
+            stmt.setInt(2, materia.getDocenteId());
 
             stmt.executeUpdate();
             conn.close();
@@ -61,7 +60,7 @@ public class MateriasDaoImpl implements MateriasDao{
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM Materias WHERE id=?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Materias SET idestadomateria=2 WHERE id=?");
             stmt.setInt(1, mateiriaId);
 
             stmt.executeUpdate();
@@ -104,10 +103,7 @@ public class MateriasDaoImpl implements MateriasDao{
             stmt.setInt(1,docenteId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
-                Materia materia = new Materia();
-                materia.setId(rs.getInt("id"));
-                materia.setNombre(rs.getString("nombre"));
-                materias.add(materia);
+                materias.add(mapMateria(rs));
             }
 
         }catch (Exception e){
@@ -115,5 +111,35 @@ public class MateriasDaoImpl implements MateriasDao{
         }
 
         return materias;
+    }
+
+    @Override
+    public List<Materia> getAll() {
+        List<Materia> materias = new LinkedList<>();
+
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT id,nombre,idestadomateria,iddocentetitular FROM Materias");
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                materias.add(mapMateria(rs));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return materias;
+    }
+
+    private Materia mapMateria(ResultSet rs) throws SQLException {
+        Materia materia = new Materia();
+        materia.setId(rs.getInt("id"));
+        materia.setNombre(rs.getString("nombre"));
+        materia.setDocenteId(rs.getInt("iddocentetitular"));
+        materia.setEstadoId(rs.getInt("idestadomateria"));
+        return materia;
     }
 }

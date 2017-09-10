@@ -45,9 +45,9 @@ public interface MateriaService {
     void asignarDocenteMateria(Integer docenteId,Integer materiaId);
 
     /**
-     * Modifica el estado de la materia
-     * @param estadoId estado a asignar
-     * @param materiaId materia a modificar
+     * Trae todas las materias
+     * @return materias devueltas
      */
-    void cambiarEstadoMateria(Integer estadoId,Integer materiaId);
+    List<Materia> getAll();
+
 }

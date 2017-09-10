@@ -37,4 +37,10 @@ public interface MateriasDao {
      * @return la lista de materias para el docente especificado
      */
     List<Materia> getMateriasDocente(Integer docenteId);
+
+    /**
+     * Devuelve todas las materias
+     * @return materias devueltas
+     */
+    List<Materia> getAll();
 }

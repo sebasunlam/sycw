@@ -29,7 +29,6 @@ public class UsuarioController implements Serializable {
 	
 	public String save(Usuario usuario) {
 
-		usuario.setEstadoId(1);
 		usuarioService.save(usuario);
 		
 		return "usuario/save";

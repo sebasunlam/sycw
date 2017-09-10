@@ -57,9 +57,7 @@ public class MateriaServiceImpl implements MateriaService {
     }
 
     @Override
-    public void cambiarEstadoMateria(Integer estadoId, Integer materiaId) {
-        Materia materia = materiasDao.get(materiaId);
-        materia.setEstadoId(estadoId);
-        materiasDao.update(materia);
+    public List<Materia> getAll() {
+        return materiasDao.getAll();
     }
 }
