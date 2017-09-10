@@ -13,13 +13,13 @@
 <h:body>
 	<h2>Bienvenido. A continuación se visualizan los usuarios habilitados, mostrando cómo JSF renderiza la página con los resultados obtenidos</h2>
 	<h:form>
-		<h:outputLabel value="#{usuarioBean.nombre}" />
+		<h:outputLabel value="#{usuarioBean.usuario.nombre}" />
 		<br />
 		<br />
-		<h:outputLabel value="#{usuarioBean.apellido}" />
+		<h:outputLabel value="#{usuarioBean.usuario.apellido}" />
 		<br />
 		<br />
-		<h:outputLabel value="#{usuarioBean.email}" />
+		<h:outputLabel value="#{usuarioBean.usuario.email}" />
 		<br />
 		<br />
 		<h:commandButton value="Back" action="index" >
