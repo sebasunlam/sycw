@@ -1,4 +1,4 @@
-package ar.edu.unlam.diit.scaw.beans;
+package ar.edu.unlam.diit.scaw.controllers;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,9 +11,9 @@ import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
 import ar.edu.unlam.diit.scaw.services.impl.UsuarioServiceImpl;
 
-@ManagedBean(name = "usuarioBean", eager = true)
+@ManagedBean(name = "usuarioController", eager = true)
 @RequestScoped
-public class UsuarioBean implements Serializable {
+public class UsuarioController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public class UsuarioBean implements Serializable {
 	
 	UsuarioService service;
 	
-	public UsuarioBean() {
+	public UsuarioController() {
 		super();
 		service = (UsuarioService) new UsuarioServiceImpl();
 	}
