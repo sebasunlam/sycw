@@ -11,7 +11,7 @@ public interface UsuarioDao {
 	 * @param usuarioId id del usuario a obtener
 	 * @return usuario obtenido
 	 */
-	Usuario get(int usuarioId);
+	Usuario get(Integer usuarioId);
 
 	/**
 	 * Obtiene un listado de todos los usuarios
@@ -43,6 +43,6 @@ public interface UsuarioDao {
 	 * Elimina un usuario
 	 * @param usuarioId id del usuario a eliminar
 	 */
-	void delete(int usuarioId);
+	void delete(Integer usuarioId);
 
 }

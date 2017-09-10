@@ -47,12 +47,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void delete(int usuarioId) {
+    public void delete(Integer usuarioId) {
         usuarioHsql.delete(usuarioId);
     }
 
     @Override
-    public Usuario get(int usuarioId) {
+    public Usuario get(Integer usuarioId) {
 
         Usuario usuario = usuarioHsql.get(usuarioId);
 
@@ -62,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void cambiarPassword(int usuarioId, String newPassword) {
+    public void cambiarPassword(Integer usuarioId, String newPassword) {
 
         Usuario usuario = usuarioHsql.get(usuarioId);
         usuario.setContraseña(newPassword);
@@ -71,7 +71,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void cambiarEstadoUsuario(int usuarioId, int estadoUsuarioId) {
+    public void cambiarEstadoUsuario(Integer usuarioId, Integer estadoUsuarioId) {
 
         Usuario usuario = usuarioHsql.get(usuarioId);
         usuario.setEstadoId(estadoUsuarioId);

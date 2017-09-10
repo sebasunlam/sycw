@@ -16,7 +16,7 @@ public class EstadoUsuarioDaoImpl implements EstadoUsuarioDao {
     Connection conn;
 
     @Override
-    public EstadoUsuario get(int estadoUsuarioId) {
+    public EstadoUsuario get(Integer estadoUsuarioId) {
         EstadoUsuario estadoUsuario = null;
         try {
             conn = (dataSource.dataSource()).getConnection();

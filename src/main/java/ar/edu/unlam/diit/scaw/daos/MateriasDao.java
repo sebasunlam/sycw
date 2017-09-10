@@ -22,19 +22,19 @@ public interface MateriasDao {
      * Elimina la materia
      * @param materiaId id de la materia a eliminar
      */
-    void delete(int materiaId);
+    void delete(Integer materiaId);
 
     /**
      * Obtiene una materia en base a su id
      * @param materiaId Id de la materia
      * @return Docente correspondiente
      */
-    Materia get(int materiaId);
+    Materia get(Integer materiaId);
 
     /**
      * Devuelve una lista de materias para un docente en particular
      * @param docenteId el id del docente para devolver las materias
      * @return la lista de materias para el docente especificado
      */
-    List<Materia> getMateriasDocente(int docenteId);
+    List<Materia> getMateriasDocente(Integer docenteId);
 }

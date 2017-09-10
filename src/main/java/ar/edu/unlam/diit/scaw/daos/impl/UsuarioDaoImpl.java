@@ -37,7 +37,6 @@ public class UsuarioDaoImpl implements UsuarioDao {
                 Integer estadoId = rs.getInt("idEstadoUsuario");
 
 
-
                 logueado = new Usuario();
                 logueado.setEmail(eMail);
                 logueado.setContraseña(contraseña);
@@ -52,12 +51,12 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
                 List<Role> roles = new LinkedList<>();
 
-                while (rsRolesUsuario.next()){
+                while (rsRolesUsuario.next()) {
                     stmt = conn.prepareStatement("SELECT id,descripcion FROM roles WHERE id =?");
-                    stmt.setInt(1,rsRolesUsuario.getInt("idrol"));
+                    stmt.setInt(1, rsRolesUsuario.getInt("idrol"));
 
                     ResultSet rsRole = stmt.executeQuery();
-                    while (rsRole.next()){
+                    while (rsRole.next()) {
                         Role role = new Role();
                         role.setId(rsRole.getInt("id"));
                         role.setDescripcion(rsRole.getString("descripcion"));
@@ -78,7 +77,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
     }
 
     @Override
-    public Usuario get(int usuarioId) {
+    public Usuario get(Integer usuarioId) {
         Usuario usuario = null;
         try {
             conn = (dataSource.dataSource()).getConnection();
@@ -162,9 +161,29 @@ public class UsuarioDaoImpl implements UsuarioDao {
             stmt.setString(5, usuario.getNombre());
 
             stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            addRoles(usuario.getRole(), rs.getInt(1));
+
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void addRoles(List<Role> roles, Integer usuarioId) throws SQLException {
+
+        PreparedStatement stmtDelete = conn.prepareStatement("DELETE FROM roleseusuarios WHERE idusuario=?");
+        stmtDelete.setInt(1, usuarioId);
+        stmtDelete.executeUpdate();
+
+        for (Role role : roles) {
+
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO rolesusuarios (idusuario,idrol) VALUES (?,?)");
+            stmt.setInt(1, usuarioId);
+            stmt.setInt(2, role.getId());
+            stmt.executeUpdate();
         }
     }
 
@@ -185,6 +204,9 @@ public class UsuarioDaoImpl implements UsuarioDao {
             stmt.setInt(6, usuario.getId());
 
             stmt.executeUpdate();
+
+            addRoles(usuario.getRole(), usuario.getId());
+
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -192,11 +214,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
     }
 
     @Override
-    public void delete(int usuarioId) {
+    public void delete(Integer usuarioId) {
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM Usuarios WHERE id=?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Usuarios SET idestadousuario=4 WHERE id=?");
             stmt.setInt(1, usuarioId);
 
             stmt.executeUpdate();

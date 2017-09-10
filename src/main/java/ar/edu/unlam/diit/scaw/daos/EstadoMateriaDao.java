@@ -11,7 +11,7 @@ public interface EstadoMateriaDao {
      * @param estadoUsuarioId id del estado
      * @return estado obtenido
      */
-    EstadoMateria get(int estadoUsuarioId);
+    EstadoMateria get(Integer estadoUsuarioId);
 
     /**
      *  Obtiene una lista de estados para las materias

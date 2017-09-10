@@ -6,6 +6,6 @@ import ar.edu.unlam.diit.scaw.entities.EstadoUsuario;
 import java.util.List;
 
 public interface EstadoMateriaService {
-    EstadoMateria get(int estadoMateriaId);
+    EstadoMateria get(Integer estadoMateriaId);
     List<EstadoMateria> getAll();
 }

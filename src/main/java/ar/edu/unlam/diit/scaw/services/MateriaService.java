@@ -22,32 +22,32 @@ public interface MateriaService {
      * Elimina la materia
      * @param materiaId id de la materia a eliminar
      */
-    void delete(int materiaId);
+    void delete(Integer materiaId);
 
     /**
      * Obtiene una materia en base a su id
      * @param materiaId Id de la materia
      * @return Docente correspondiente
      */
-    Materia get(int materiaId);
+    Materia get(Integer materiaId);
 
     /**
      * Devuelve una lista de materias para un docente en particular
      * @param docenteId el id del docente para devolver las materias
      * @return la lista de materias para el docente especificado
      */
-    List<Materia> getMateriasDocente(int docenteId);
+    List<Materia> getMateriasDocente(Integer docenteId);
     /**
      * Asigna las materias a los docentes
      * @param docenteId Id del docente a asignar la materia
      * @param materiaId Id de la materia para asignarle al docente
      */
-    void asignarDocenteMateria(int docenteId,int materiaId);
+    void asignarDocenteMateria(Integer docenteId,Integer materiaId);
 
     /**
      * Modifica el estado de la materia
      * @param estadoId estado a asignar
      * @param materiaId materia a modificar
      */
-    void cambiarEstadoMateria(int estadoId,int materiaId);
+    void cambiarEstadoMateria(Integer estadoId,Integer materiaId);
 }

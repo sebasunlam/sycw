@@ -20,7 +20,7 @@ public class EstadoMateriaServiceImpl implements EstadoMateriaService {
     }
 
     @Override
-    public EstadoMateria get(int estdoMateriaId) {
+    public EstadoMateria get(Integer estdoMateriaId) {
         return estadoMateriaDao.get(estdoMateriaId);
     }
 

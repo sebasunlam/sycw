@@ -57,7 +57,7 @@ public class MateriasDaoImpl implements MateriasDao{
     }
 
     @Override
-    public void delete(int mateiriaId) {
+    public void delete(Integer mateiriaId) {
         try {
             conn = (dataSource.dataSource()).getConnection();
 
@@ -72,7 +72,7 @@ public class MateriasDaoImpl implements MateriasDao{
     }
 
     @Override
-    public Materia get(int materiaId) {
+    public Materia get(Integer materiaId) {
         Materia materia = null;
         try {
             conn = (dataSource.dataSource()).getConnection();
@@ -94,7 +94,7 @@ public class MateriasDaoImpl implements MateriasDao{
     }
 
     @Override
-    public List<Materia> getMateriasDocente(int docenteId) {
+    public List<Materia> getMateriasDocente(Integer docenteId) {
         List<Materia> materias = new LinkedList<>();
 
         try {

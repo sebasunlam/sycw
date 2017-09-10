@@ -18,7 +18,7 @@ public class EstadoMateriaDaoImpl implements EstadoMateriaDao {
     Connection conn;
 
     @Override
-    public EstadoMateria get(int estadoUsuarioId) {
+    public EstadoMateria get(Integer estadoUsuarioId) {
         EstadoMateria estadoMateria = null;
         try {
             conn = (dataSource.dataSource()).getConnection();

@@ -20,33 +20,28 @@ public class UsuarioController implements Serializable {
 	@ManagedProperty(value = "#{usuario}")
 	private Usuario usuario = null;
 	
-	
-	UsuarioService service;
-	
+	UsuarioService usuarioService;
+
 	public UsuarioController() {
 		super();
-		service = (UsuarioService) new UsuarioServiceImpl();
+		usuarioService = new UsuarioServiceImpl();
 	}
 	
-//	public UsuarioBean(Usuario usuario) {
-//		super();
-//		this.usuario = usuario;
-//	}
-	
-	public String save() {
+	public String save(Usuario usuario) {
 
-		service.save(this.usuario);
+		usuario.setEstadoId(1);
+		usuarioService.save(usuario);
 		
-		return "welcome";
+		return "usuario/save";
 	}
 	
 	public List<Usuario> getFindAll() {
-		List<Usuario> list = service.findAll();
+		List<Usuario> list = usuarioService.findAll();
 		return list;
 	}
 	
 	public String login(){
-		Usuario logueado = service.login(this.usuario);
+		Usuario logueado = usuarioService.login(this.usuario);
 		if(logueado!=null) 
 		{
 			return "welcome";			
@@ -55,26 +50,41 @@ public class UsuarioController implements Serializable {
 		{
 			return "index";
 		}		
-	}	
-
-//	private Usuario buildUsuario() {
-//		Usuario usuario = new Usuario();
-//
-//		usuario.setEmail(this.eMail);
-//		usuario.setContraseña(contraseña);
-//		usuario.setId(id);
-//		usuario.setApellido(this.apellido);
-//		usuario.setNombre(this.nombre);
-//
-//		return usuario;
-//	}
-
-	public UsuarioService getService() {
-		return service;
 	}
 
-	public void setService(UsuarioService service) {
-		this.service = service;
+	public String update(Usuario usuario){
+
+		usuarioService.update(usuario);
+
+		return "usuario/update";
+	}
+
+	public String aprobarUsuario(Integer usuarioId){
+
+		Usuario usuario = usuarioService.get(usuarioId);
+		//Si el usuario no existe se devulve un not found para que el sistema no lance una excepcion
+		if(usuario != null){
+			usuarioService.cambiarEstadoUsuario(usuarioId,2);
+			return "usuario/index";
+		}
+		return "notfound";
+	}
+
+	public String rechazarUsuario(Integer usuarioId){
+
+		Usuario usuario = usuarioService.get(usuarioId);
+		//Si el usuario no existe se devulve un not found para que el sistema no lance una excepcion
+		if(usuario != null){
+			usuarioService.cambiarEstadoUsuario(usuarioId,3);
+			return "usuario/index";
+		}
+
+		return "notfound";
+	}
+
+	public String delete(Integer usuarioId){
+		usuarioService.delete(usuarioId);
+		return "usuario/index";
 	}
 
 	public static long getSerialversionuid() {
