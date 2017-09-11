@@ -1,6 +1,7 @@
 package ar.edu.unlam.diit.scaw.entities;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
 import java.util.List;
@@ -15,8 +16,10 @@ public class Usuario implements Serializable {
 	private String contraseña;
 	private String apellido;
 	private String nombre;
+	private String repetirPassword;
 	private Integer estadoId;
 	private EstadoUsuario estado;
+//	@ManagedProperty(value = "#{roles}")
 	private List<Role> roles;
 
 	public Usuario() {
@@ -84,5 +87,23 @@ public class Usuario implements Serializable {
 
 	public void setEstadoId(Integer estadoId) {
 		this.estadoId = estadoId;
+	}
+
+	public String getRepetirPassword() {
+		return repetirPassword;
+	}
+
+	public void setRepetirPassword(String repetirPassword) {
+		this.repetirPassword = repetirPassword;
+	}
+	public Boolean hasRole(String descripcion){
+
+		Boolean contains = false;
+		for (Role role: this.roles) {
+			contains = role.getDescripcion().equals(descripcion);
+			if(contains) break;
+		}
+
+		return contains;
 	}
 }

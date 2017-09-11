@@ -10,7 +10,7 @@ public interface EstadoUsuarioDao {
      * @param estadoUsuarioId id del estado
      * @return estado obtenido
      */
-    EstadoUsuario get (int estadoUsuarioId);
+    EstadoUsuario get (Integer estadoUsuarioId);
 
     /**
      *  Obtiene una lista de estados para los usuarios

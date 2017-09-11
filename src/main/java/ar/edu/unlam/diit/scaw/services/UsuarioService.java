@@ -7,11 +7,12 @@ public interface UsuarioService {
 
 	Usuario login(Usuario usuario);
 	List<Usuario> findAll();
-	Usuario get(int usuarioId);
+	Usuario get(Integer usuarioId);
 	void save(Usuario usuario);
 	void update(Usuario usuario);
-	void delete(int usuarioId);
-	void cambiarPassword(int usuarioId,String newPassword);
-	void  cambiarEstadoUsuario(int usuarioId,int estadoUsuarioId);
+	void delete(Integer usuarioId);
+	void cambiarPassword(Integer usuarioId,String newPassword);
+	void  cambiarEstadoUsuario(Integer usuarioId,Integer estadoUsuarioId);
+	Boolean userExist(String email);
 
 }

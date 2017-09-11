@@ -31,12 +31,12 @@ public class MateriaServiceImpl implements MateriaService {
     }
 
     @Override
-    public void delete(int materiaId) {
+    public void delete(Integer materiaId) {
         materiasDao.delete(materiaId);
     }
 
     @Override
-    public Materia get(int materiaId) {
+    public Materia get(Integer materiaId) {
         Materia materia = materiasDao.get(materiaId);
         materia.setDocenteTitular(usuarioService.get(materia.getDocenteId()));
         materia.setEstado(estadoMateriaService.get(materia.getEstadoId()));
@@ -45,21 +45,19 @@ public class MateriaServiceImpl implements MateriaService {
     }
 
     @Override
-    public List<Materia> getMateriasDocente(int docenteId) {
+    public List<Materia> getMateriasDocente(Integer docenteId) {
         return materiasDao.getMateriasDocente(docenteId);
     }
 
     @Override
-    public void asignarDocenteMateria(int docenteId, int materiaId) {
+    public void asignarDocenteMateria(Integer docenteId, Integer materiaId) {
         Materia materia = materiasDao.get(materiaId);
         materia.setDocenteId(docenteId);
         materiasDao.update(materia);
     }
 
     @Override
-    public void cambiarEstadoMateria(int estadoId, int materiaId) {
-        Materia materia = materiasDao.get(materiaId);
-        materia.setEstadoId(estadoId);
-        materiasDao.update(materia);
+    public List<Materia> getAll() {
+        return materiasDao.getAll();
     }
 }

@@ -17,7 +17,7 @@ public class EstadoUsuarioServiceImpl implements EstadoUsuarioService {
     }
 
     @Override
-    public EstadoUsuario get(int estadoUsuarioId) {
+    public EstadoUsuario get(Integer estadoUsuarioId) {
         return estadoUsuarioDao.get(estadoUsuarioId);
     }
 
