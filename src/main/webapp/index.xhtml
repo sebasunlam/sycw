@@ -16,11 +16,8 @@
 </h:head>
 
 <h:body>
-
-
 	<div class="panel-body">
 		<h:form>
-
 			<div class="alert alert-info">
 				<h3>UNLAM - Sistema de evaluación</h3>
 			</div>
@@ -28,18 +25,17 @@
 			<h:panelGrid columns="3">
 
 				<h:outputLabel for="eMail">E-Mail:</h:outputLabel>
-				<h:inputText value="#{usuarioBean.usuario.email}" id="eMail"></h:inputText>
+				<h:inputText value="#{usuarioController.usuario.email}" id="eMail"></h:inputText>
 				<br />
 				<br />
 
 				<h:outputLabel for="password">Contraseña:</h:outputLabel>
-				<h:inputSecret value="#{usuarioBean.usuario.contraseña}" id="password"></h:inputSecret>
+				<h:inputSecret value="#{usuarioController.usuario.contraseña}" id="password"></h:inputSecret>
 				<br />
 				<br />
 
-				<h:commandButton action="#{usuarioBean.login}" value="Ingresar">
+				<h:commandButton action="#{usuarioController.login}" value="Ingresar">
 				</h:commandButton>
-				
 			</h:panelGrid>
 		</h:form>
 	</div>
