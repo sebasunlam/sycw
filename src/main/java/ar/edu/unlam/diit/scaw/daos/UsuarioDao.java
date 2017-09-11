@@ -44,5 +44,10 @@ public interface UsuarioDao {
 	 * @param usuarioId id del usuario a eliminar
 	 */
 	void delete(Integer usuarioId);
+	/**
+	 * Checkea si existe el usuario
+	 * @param email email del usuario
+	 */
+	Boolean userExist(String email);
 
 }

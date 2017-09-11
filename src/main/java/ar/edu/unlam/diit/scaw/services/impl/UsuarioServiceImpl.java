@@ -78,4 +78,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioHsql.update(usuario);
 
     }
+
+    @Override
+    public Boolean userExist(String email) {
+        return usuarioHsql.userExist(email);
+    }
 }

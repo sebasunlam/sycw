@@ -19,7 +19,7 @@ public class Usuario implements Serializable {
 	private String repetirPassword;
 	private Integer estadoId;
 	private EstadoUsuario estado;
-	@ManagedProperty(value = "#{roles}")
+//	@ManagedProperty(value = "#{roles}")
 	private List<Role> roles;
 
 	public Usuario() {
@@ -95,5 +95,15 @@ public class Usuario implements Serializable {
 
 	public void setRepetirPassword(String repetirPassword) {
 		this.repetirPassword = repetirPassword;
+	}
+	public Boolean hasRole(String descripcion){
+
+		Boolean contains = false;
+		for (Role role: this.roles) {
+			contains = role.getDescripcion().equals(descripcion);
+			if(contains) break;
+		}
+
+		return contains;
 	}
 }

@@ -13,5 +13,6 @@ public interface UsuarioService {
 	void delete(Integer usuarioId);
 	void cambiarPassword(Integer usuarioId,String newPassword);
 	void  cambiarEstadoUsuario(Integer usuarioId,Integer estadoUsuarioId);
+	Boolean userExist(String email);
 
 }

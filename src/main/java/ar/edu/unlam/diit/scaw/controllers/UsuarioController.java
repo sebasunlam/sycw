@@ -1,6 +1,7 @@
 package ar.edu.unlam.diit.scaw.controllers;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -10,100 +11,161 @@ import javax.faces.bean.ManagedProperty;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
 import ar.edu.unlam.diit.scaw.services.impl.UsuarioServiceImpl;
+import ar.edu.unlam.diit.scaw.utls.SessionUtils;
 
 @ManagedBean(name = "usuarioController", eager = true)
 @RequestScoped
 public class UsuarioController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@ManagedProperty(value = "#{usuario}")
-	private Usuario usuario = null;
-	
-	UsuarioService usuarioService;
+    @ManagedProperty(value = "#{usuario}")
+    private Usuario usuario = null;
 
-	public UsuarioController() {
-		super();
-		usuarioService = new UsuarioServiceImpl();
-	}
-	
-	public String save() {
+    private List<String> errors = new LinkedList<>();
+    private List<String> loginErrors = new LinkedList<>();
 
-		usuarioService.save(this.usuario);
-		
-		return "usuario/save";
-	}
-	
-	public List<Usuario> getFindAll() {
-		List<Usuario> list = usuarioService.findAll();
-		return list;
-	}
-	
-	public String login(){
-		Usuario logueado = usuarioService.login(this.usuario);
-		if(logueado!=null) 
-		{
-			return "welcome";			
-		}
-		else
-		{
-			return "index";
-		}		
-	}
+    UsuarioService usuarioService;
 
-	public String update(){
+    public UsuarioController() {
+        super();
+        usuarioService = new UsuarioServiceImpl();
+    }
 
-		usuarioService.update(this.usuario);
+    public String save() {
 
-		return "usuario/update";
-	}
+        return saveUser("usuario/index","usuario/save");
+    }
 
-	public String aprobarUsuario(Integer usuarioId){
+    private String saveUser(String returnPath,String returnError){
+        if (usuarioService.userExist(this.usuario.getEmail())) {
+            errors.add("El usuario ya existe");
+        }
 
-		Usuario usuario = usuarioService.get(usuarioId);
-		//Si el usuario no existe se devulve un not found para que el sistema no lance una excepcion
-		if(usuario != null){
-			usuarioService.cambiarEstadoUsuario(usuarioId,2);
-			return "usuario/index";
-		}
-		return "notfound";
-	}
+        if(!this.usuario.getContraseña().equals(this.usuario.getRepetirPassword())){
+            errors.add("Las contraseñas no coinciden");
+        }
 
-	public String rechazarUsuario(Integer usuarioId){
+        if(errors.size() == 0){
+            usuarioService.save(this.usuario);
+            return returnPath;
+        }
 
-		Usuario usuario = usuarioService.get(usuarioId);
-		//Si el usuario no existe se devulve un not found para que el sistema no lance una excepcion
-		if(usuario != null){
-			usuarioService.cambiarEstadoUsuario(usuarioId,3);
-			return "usuario/index";
-		}
+        return returnError;
+    }
 
-		return "notfound";
-	}
+    public String save(String path) {
+        return saveUser(path,"login");
+    }
 
-	public String delete(Integer usuarioId){
-		usuarioService.delete(usuarioId);
-		return "usuario/index";
-	}
+    public List<Usuario> getFindAll() {
+        List<Usuario> list = usuarioService.findAll();
+        return list;
+    }
 
-	public String get(Integer usuarioId,String path){
-		this.usuario = usuarioService.get(usuarioId);
+    public String login() {
+        Usuario logueado = usuarioService.login(this.usuario);
+        if (logueado != null) {
+            switch (logueado.getEstadoId()){
+                case 1: loginErrors.add("Su usuario se encuentra pendiente de habilitacion");
+                    return "login";
+                case 2: SessionUtils.setUser(logueado);
+                    return "welcome";
+                case 3: loginErrors.add("Su usuario fue rechazado");
+                    return "login";
+                case 4: loginErrors.add("Su usuario fue eliminado");
+                    return "login";
+                default: loginErrors.add("Ocurrio un error inesperado");
+                    return "login";
+            }
+        } else {
+            loginErrors.add("Usuario o contraseña no valido");
+            return "login";
+        }
+    }
 
-		if(usuario == null){
-			return "notfound";
-		}
-		return path;
-	}
+    public String update() {
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+        usuarioService.update(this.usuario);
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
+        return "usuario/update";
+    }
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+    public String update(String path) {
+
+        usuarioService.update(this.usuario);
+
+        return path;
+    }
+
+    public String aprobarUsuario(Integer usuarioId) {
+
+        Usuario usuario = usuarioService.get(usuarioId);
+        //Si el usuario no existe se devulve un not found para que el sistema no lance una excepcion
+        if (usuario != null) {
+            usuarioService.cambiarEstadoUsuario(usuarioId, 2);
+            return "usuario/index";
+        }
+        return "notfound";
+    }
+
+    public String rechazarUsuario(Integer usuarioId) {
+
+        Usuario usuario = usuarioService.get(usuarioId);
+        //Si el usuario no existe se devulve un not found para que el sistema no lance una excepcion
+        if (usuario != null) {
+            usuarioService.cambiarEstadoUsuario(usuarioId, 3);
+            return "usuario/index";
+        }
+
+        return "notfound";
+    }
+
+    public String delete(Integer usuarioId) {
+        usuarioService.delete(usuarioId);
+        return "usuario/index";
+    }
+
+    public String get(Integer usuarioId, String path) {
+        this.usuario = usuarioService.get(usuarioId);
+
+        if (usuario == null) {
+            return "notfound";
+        }
+        return path;
+    }
+
+    public String logout() {
+        SessionUtils.destroy();
+        return "login";
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+
+    public List<String> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<String> errors) {
+        this.errors = errors;
+    }
+
+    public List<String> getLoginErrors() {
+        return loginErrors;
+    }
+
+    public void setLoginErrors(List<String> loginErrors) {
+        this.loginErrors = loginErrors;
+    }
 }

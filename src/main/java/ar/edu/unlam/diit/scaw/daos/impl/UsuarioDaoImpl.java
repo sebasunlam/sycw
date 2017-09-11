@@ -21,7 +21,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Usuarios WHERE eMail = ? AND password = ? AND idEstadoUsuario = 2");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Usuarios WHERE eMail = ? AND password = ?");
             stmt.setString(1, usuario.getEmail());
             stmt.setString(2, usuario.getContraseña());
 
@@ -153,18 +153,20 @@ public class UsuarioDaoImpl implements UsuarioDao {
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Usuarios (id,email,password,apellido,nombre,idestadousuario)VALUES(?, ?, ?, ?, ?, 1)");
-            stmt.setInt(1, usuario.getId());
-            stmt.setString(2, usuario.getEmail());
-            stmt.setString(3, usuario.getContraseña());
-            stmt.setString(4, usuario.getApellido());
-            stmt.setString(5, usuario.getNombre());
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Usuarios (email,password,apellido,nombre,idestadousuario)VALUES(?, ?, ?, ?, 1)");
+            stmt.setString(1, usuario.getEmail());
+            stmt.setString(2, usuario.getContraseña());
+            stmt.setString(3, usuario.getApellido());
+            stmt.setString(4, usuario.getNombre());
 
             stmt.executeUpdate();
+            stmt = conn.prepareStatement("SELECT ID FROM USUARIOS WHERE EMAIL=?");
+            stmt.setString(1, usuario.getEmail());
 
-            ResultSet rs = stmt.getGeneratedKeys();
-            rs.next();
-            addRoles(usuario.getRole(), rs.getInt(1));
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                addRoles(usuario.getRole(), rs.getInt("ID"));
+            }
 
             conn.close();
         } catch (SQLException e) {
@@ -174,13 +176,13 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
     private void addRoles(List<Role> roles, Integer usuarioId) throws SQLException {
 
-        PreparedStatement stmtDelete = conn.prepareStatement("DELETE FROM roleseusuarios WHERE idusuario=?");
+        PreparedStatement stmtDelete = conn.prepareStatement("DELETE FROM ROLESUSUARIOS WHERE IDUSUARIO=?");
         stmtDelete.setInt(1, usuarioId);
         stmtDelete.executeUpdate();
 
         for (Role role : roles) {
 
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO rolesusuarios (idusuario,idrol) VALUES (?,?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO ROLESUSUARIOS (IDUSUARIO,IDROL) VALUES (?,?)");
             stmt.setInt(1, usuarioId);
             stmt.setInt(2, role.getId());
             stmt.executeUpdate();
@@ -226,6 +228,32 @@ public class UsuarioDaoImpl implements UsuarioDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Boolean userExist(String email) {
+        Boolean exist = false;
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM Usuarios WHERE EMAIL = ?");
+            stmt.setString(1, email);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getInt(1) > 0) {
+                    exist = true;
+                }
+            }
+
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return exist;
     }
 
 }
