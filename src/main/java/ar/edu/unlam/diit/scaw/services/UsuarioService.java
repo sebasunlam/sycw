@@ -5,8 +5,14 @@ import ar.edu.unlam.diit.scaw.entities.Usuario;
 
 public interface UsuarioService {
 
-	public Usuario login(Usuario usuario);
-	public List<Usuario> findAll();
-	public void save(Usuario usuario);
+	Usuario login(Usuario usuario);
+	List<Usuario> findAll();
+	Usuario get(Integer usuarioId);
+	void save(Usuario usuario);
+	void update(Usuario usuario);
+	void delete(Integer usuarioId);
+	void cambiarPassword(Integer usuarioId,String newPassword);
+	void  cambiarEstadoUsuario(Integer usuarioId,Integer estadoUsuarioId);
+	Boolean userExist(String email);
 
 }

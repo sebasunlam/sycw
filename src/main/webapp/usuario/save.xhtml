@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xml:lang="en" lang="en">
+<head>
+    <title>Title</title>
+    <ui:insert name="header" >
+        <ui:include src="../templates/header.xhtml" />
+    </ui:insert>
+</head>
+<body>
+
+<h:form styleClass="form-horizontal">
+    <ui:insert name="form" >
+        <ui:include src="form.xhtml" />
+    </ui:insert>
+    <h:commandButton action="#{usuarioController.save()}" value="Ingresar">
+    </h:commandButton>
+</h:form>
+
+
+<ui:insert name="scripts" >
+    <ui:include src="../templates/scripts.xhtml" />
+</ui:insert>
+</body>
+</html>
