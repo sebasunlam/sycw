@@ -9,11 +9,9 @@ import java.util.List;
 public class ExamenServiceImpl implements ExamenService {
 
     ExamenDaoImpl examenHsql;
-    //EstadoUsuarioDao estadoUsuarioDao;
 
     public ExamenServiceImpl() {
         examenHsql = new ExamenDaoImpl();
-        //estadoUsuarioDao = new EstadoUsuarioDaoImpl();
     }
 
     @Override
@@ -24,9 +22,6 @@ public class ExamenServiceImpl implements ExamenService {
     @Override
     public Examen get(int examenId) {
         Examen examen = examenHsql.get(examenId);
-
-        //examen.setIdEstadoExamen(EstadoExamenDato.get(examen.getIdEstadoExamen()));
-        //examen.setIdMateria();
         return examen;
     }
 
