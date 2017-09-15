@@ -20,7 +20,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario login(Usuario usuario) {
-        //por ejemplo modificar algo del usuario, el nombre en mayuscula
         return usuarioHsql.login(usuario);
     }
 
