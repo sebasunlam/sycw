@@ -34,13 +34,14 @@
                         #{materia.nombre}
                     </h:column>
                     <h:column>
-                        <h:outputLink value="/materia/update.xhtml">
-                            <span class="glyphicons glyphicons-edit"></span>Edit
-                            <f:param name="id" value="#{materia.id}" />
-                        </h:outputLink>
+                        <h:form>
+                            <h:commandButton value="test" action="#{materiaController.editView(materia.id)}"/>
+                        </h:form>
                     </h:column>
                     <h:column>
-                        <h:commandButton value="Borrar" action="#{materiaController.delete(materia.id)}"/>
+                        <h:form>
+                            <h:commandButton value="Borrar" action="#{materiaController.delete(materia.id)}"/>
+                        </h:form>
                     </h:column>
                 </h:dataTable>
             </div>

@@ -178,4 +178,9 @@ public class UsuarioController implements Serializable {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public String editView(Integer id) {
+        usuario = usuarioService.get(id);
+        return "/usuario/update";
+    }
 }

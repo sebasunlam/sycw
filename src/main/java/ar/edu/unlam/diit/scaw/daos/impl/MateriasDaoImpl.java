@@ -76,13 +76,15 @@ public class MateriasDaoImpl implements MateriasDao{
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT id,nombre,idestadomateria,iddocentetitular FROM Materias WHERE id=?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT ID,NOMBRE,IDESTADOMATERIA,IDDOCENTETITULAR FROM MATERIAS WHERE id=?");
             stmt.setInt(1,materiaId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 materia = new Materia();
                 materia.setId(rs.getInt("id"));
                 materia.setNombre(rs.getString("nombre"));
+                materia.setEstadoId(rs.getInt("nombre"));
+                materia.setDocenteId(rs.getInt("nombre"));
             }
 
         }catch (Exception e){
