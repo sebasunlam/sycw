@@ -115,12 +115,12 @@ public class MateriasDaoImpl implements MateriasDao{
 
     @Override
     public List<Materia> getAll() {
-        List<Materia> materias = new LinkedList<>();
+        List<Materia> materias = new LinkedList<Materia>();
 
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT id,nombre,idestadomateria,iddocentetitular FROM Materias");
+            PreparedStatement stmt = conn.prepareStatement("SELECT ID,NOMBRE,IDDOCENTETITULAR,IDESTADOMATERIA FROM MATERIAS");
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){

@@ -8,6 +8,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import ar.edu.unlam.diit.scaw.entities.Role;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
 import ar.edu.unlam.diit.scaw.services.impl.UsuarioServiceImpl;
@@ -21,6 +22,7 @@ public class UsuarioController implements Serializable {
 
     @ManagedProperty(value = "#{usuario}")
     private Usuario usuario = null;
+    private Role role = null;
 
     private List<String> errors = new LinkedList<>();
     private List<String> loginErrors = new LinkedList<>();
@@ -167,5 +169,13 @@ public class UsuarioController implements Serializable {
 
     public void setLoginErrors(List<String> loginErrors) {
         this.loginErrors = loginErrors;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
