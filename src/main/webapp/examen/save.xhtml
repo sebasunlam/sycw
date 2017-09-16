@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<h:head>
+    <title>Crear Examen</title>
+    <ui:insert name="header">
+        <ui:include src="../templates/header.xhtml"/>
+    </ui:insert>
+</h:head>
+<h:body>
+    <ui:insert name="header">
+        <ui:include src="../templates/navbar.xhtml"/>
+    </ui:insert>
+    <div class="row">
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Generador de Exámenes</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <h:form >
+                <div class="form-group">
+                    <h:outputLabel for="descripcion" >Agrega el nombre del examen</h:outputLabel>
+                    <h:inputText value="#{examenController.examen.nombre}" styleClass="form-control"></h:inputText>
+                </div>
+                <!-- boton submit -->
+                <h:commandButton value="Añadir examen" action="#{examenController.save()}" styleClass="btn btn-success" />
+            </h:form>
+        </div>
+    </div>
+
+</h:body>
+</html>

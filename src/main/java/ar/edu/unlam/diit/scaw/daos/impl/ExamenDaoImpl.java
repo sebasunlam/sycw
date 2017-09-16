@@ -23,7 +23,7 @@ public class ExamenDaoImpl implements ExamenesDao {
             stmt.setInt(1, examen.getId());
             stmt.setString(2, examen.getNombre());
             stmt.setInt(3, examen.getIdMateria());
-            stmt.setInt(4, examen.getIdEstadoExamen());
+            stmt.setInt(4, examen.getEstado().getId());
 
             stmt.executeUpdate();
             conn.close();
@@ -41,7 +41,7 @@ public class ExamenDaoImpl implements ExamenesDao {
 
             stmt.setString(1, examen.getNombre());
             stmt.setInt(2, examen.getIdMateria());
-            stmt.setInt(3, examen.getIdEstadoExamen());
+            stmt.setInt(3, examen.getEstado().getId());
             stmt.setInt(4, examen.getId());
 
             stmt.executeUpdate();

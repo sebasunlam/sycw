@@ -12,6 +12,9 @@ public class Examen implements Serializable{
     private EstadoExamen estado;
     private List<Pregunta> preguntas;
 
+    private Integer idMateria;
+
+
     public Integer getId() {
         return id;
     }
@@ -42,5 +45,9 @@ public class Examen implements Serializable{
 
     public void setPreguntas(List<Pregunta> preguntas) {
         this.preguntas = preguntas;
+    }
+
+    public Integer getIdMateria() {
+        return idMateria;
     }
 }
