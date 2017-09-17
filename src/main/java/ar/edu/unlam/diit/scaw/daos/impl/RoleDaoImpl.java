@@ -31,6 +31,7 @@ public class RoleDaoImpl implements RoleDao{
             while (rs.next()){
                 roles.add(mapRole(rs));
             }
+            conn.close();
 
         }catch (Exception e){
             e.printStackTrace();

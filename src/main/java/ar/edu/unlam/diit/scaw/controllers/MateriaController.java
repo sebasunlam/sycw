@@ -15,7 +15,7 @@ import java.util.List;
 
 @ManagedBean(name = "materiaController", eager = true)
 @RequestScoped
-public class MateriasController implements Serializable{
+public class MateriaController implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class MateriasController implements Serializable{
     MateriaService materiaService;
     private List<String> errors = new LinkedList<>();
 
-    public MateriasController() {
+    public MateriaController() {
         super();
         materiaService = new MateriaServiceImpl();
     }

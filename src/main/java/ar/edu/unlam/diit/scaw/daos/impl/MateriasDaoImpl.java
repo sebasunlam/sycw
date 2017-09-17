@@ -64,6 +64,7 @@ public class MateriasDaoImpl implements MateriasDao{
             stmt.setInt(1, mateiriaId);
 
             stmt.executeUpdate();
+
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,6 +85,8 @@ public class MateriasDaoImpl implements MateriasDao{
                 materia.setId(rs.getInt("id"));
                 materia.setNombre(rs.getString("nombre"));
             }
+
+            conn.close();
 
         }catch (Exception e){
             e.printStackTrace();
@@ -106,6 +109,8 @@ public class MateriasDaoImpl implements MateriasDao{
                 materias.add(mapMateria(rs));
             }
 
+            conn.close();
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -126,6 +131,8 @@ public class MateriasDaoImpl implements MateriasDao{
             while (rs.next()){
                 materias.add(mapMateria(rs));
             }
+
+            conn.close();
 
         }catch (Exception e){
             e.printStackTrace();
