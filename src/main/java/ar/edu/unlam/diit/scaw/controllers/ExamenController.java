@@ -9,6 +9,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import java.io.Serializable;
+import java.util.List;
 
 @ManagedBean(name = "examenController", eager = true)
 @RequestScoped
@@ -19,32 +20,42 @@ public class ExamenController implements Serializable {
     @ManagedProperty(value = "#{examen}")
     private Examen examen = null;
 
-    ExamenService service;
+    ExamenService examenService;
 
     public ExamenController(){
         super();
-        service = (ExamenService) new ExamenServiceImpl();
+        examenService = new ExamenServiceImpl();
     }
 
     public String save(){
-        service.save(this.examen);
+
+        examenService.save(this.examen);
+
         return "examen/index";
     }
 
     public String delete(Integer Id) {
-        service.delete(Id);
+
+        this.examen = examenService.get(Id);
+
+        if (examen == null) {
+            return "notfound";
+        }
+
+        examenService.delete(Id);
+
         return "examen/index";
     }
 
     public String update(String path) {
 
-        service.update(this.examen);
+        examenService.update(this.examen);
 
         return path;
     }
 
     public String get(Integer Id, String path) {
-        this.examen = service.get(Id);
+        this.examen = examenService.get(Id);
 
         if (examen == null) {
             return "notfound";
@@ -52,12 +63,14 @@ public class ExamenController implements Serializable {
         return path;
     }
 
-    public String cargarExamen(Integer idMateria){
-        this.examen.setIdMateria(idMateria);
-        return "examen/save";
+    public List<Examen> getAll(){
+        return examenService.findAll();
     }
 
-    public String agregarPregunta(Integer idExamen){
-        return null;
+    public String editView(Integer id) {
+        examen = examenService.get(id);
+        return "/examenes/update";
     }
+
+
 }

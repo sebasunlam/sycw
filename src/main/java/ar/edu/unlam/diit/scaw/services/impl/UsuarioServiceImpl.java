@@ -26,7 +26,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public List<Usuario> findAll() {
-        return usuarioHsql.findAll();
+
+        List<Usuario> usuarios = usuarioHsql.findAll();
+        for (Usuario usuario: usuarios) {
+            usuario.setEstado(estadoUsuarioDao.get(usuario.getEstadoId()));
+        }
+
+        return usuarios;
     }
 
     public UsuarioDaoImpl getUsuarioHsql() {
@@ -44,6 +50,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void update(Usuario usuario) {
+        Usuario old = get(usuario.getId());
+
+        if(usuario.getContraseña().equals("") || usuario.getContraseña() == null){
+            usuario.setContraseña(old.getContraseña());
+        }
+
         usuarioHsql.update(usuario);
     }
 

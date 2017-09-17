@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE html
-                PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core"
       xml:lang="en" lang="en">
 
 <h:head>
@@ -15,44 +15,62 @@
     </ui:insert>
 </h:head>
 <body>
-    <ui:insert name="header">
-        <ui:include src="/templates/navbar.xhtml"/>
-    </ui:insert>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Listado de Usuarios</h1>
-                <h:button styleClass="btn btn-primary right" outcome="save.xhtml" value="Nuevo Usuario" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <h:dataTable value="#{usuarioController.findAll}" var="usuario"
-                             styleClass="table table-striped">
-                    <h:column>
-                        <f:facet name="header">Nombre</f:facet>
-                        #{usuario.nombre}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Apellido</f:facet>
-                        #{usuario.apellido}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Estado</f:facet>
-                        #{usuario.estado.descripcion}
-                    </h:column>
-                    <h:column>
-                        <h:form>
-                            <h:commandButton value="test" action="#{usuarioController.editView(usuario.id)}"/>
-                        </h:form>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Borrar</f:facet>
-                        <h:commandButton value="Borrar" action="#{usuarioController.delete(usuario.id)}"/>
-                    </h:column>
-                </h:dataTable>
-            </div>
+<ui:insert name="header">
+    <ui:include src="/templates/navbar.xhtml"/>
+</ui:insert>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Listado de Usuarios</h1>
+            <h:button styleClass="btn btn-primary right" outcome="save.xhtml" value="Nuevo Usuario"/>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h:dataTable value="#{usuarioController.findAll}" var="usuario"
+                         styleClass="table table-striped">
+                <h:column>
+                    <f:facet name="header">Nombre</f:facet>
+                    #{usuario.nombre}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Apellido</f:facet>
+                    #{usuario.apellido}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Estado</f:facet>
+                    #{usuario.estado.descripcion}
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <c:if test="#{usuario.estadoId != 2}">
+                            <h:commandButton value="Aprobar" action="#{usuarioController.aprobarUsuario(usuario.id)}"
+                                             styleClass="btn btn-success"/>
+                        </c:if>
+                    </h:form>
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <c:if test="#{usuario.estadoId != 3}">
+                            <h:commandButton value="Rechazar" action="#{usuarioController.rechazarUsuario(usuario.id)}"
+                                             styleClass="btn btn-warning"/>
+                        </c:if>
+                    </h:form>
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <h:commandButton value="Editar" action="#{usuarioController.editView(usuario.id)}"
+                                         styleClass="btn btn-info"/>
+                    </h:form>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Borrar</f:facet>
+                    <h:commandButton value="Borrar" action="#{usuarioController.delete(usuario.id)}"
+                                     styleClass="btn btn-danger"/>
+                </h:column>
+            </h:dataTable>
+        </div>
+    </div>
+</div>
 </body>
 </html>

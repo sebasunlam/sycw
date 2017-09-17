@@ -2,12 +2,12 @@ package ar.edu.unlam.diit.scaw.daos.impl;
 
 import ar.edu.unlam.diit.scaw.configs.HsqlDataSource;
 import ar.edu.unlam.diit.scaw.daos.ExamenesDao;
+import ar.edu.unlam.diit.scaw.entities.EstadoMateria;
 import ar.edu.unlam.diit.scaw.entities.Examen;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ExamenDaoImpl implements ExamenesDao {
 
@@ -72,7 +72,7 @@ public class ExamenDaoImpl implements ExamenesDao {
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM EXAMENES WHERE ID = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT ID,NOMBRE,IDMATERIA,IDESTADOEXAMEN FROM EXAMENES WHERE ID = ?");
             stmt.setInt(1, examenId);
             ResultSet rs = stmt.executeQuery();
 
@@ -80,6 +80,8 @@ public class ExamenDaoImpl implements ExamenesDao {
                 examen = new Examen();
                 examen.setId(rs.getInt("id"));
                 examen.setNombre(rs.getString("nombre"));
+                examen.setIdMateria(rs.getInt("idmateria"));
+                examen.setIdEstadoExamen(rs.getInt("idestadoexamen"));
             }
 
             conn.close();
@@ -88,5 +90,32 @@ public class ExamenDaoImpl implements ExamenesDao {
             e.printStackTrace();
         }
         return examen;
+    }
+
+    @Override
+    public List<Examen> getAll(){
+        List<Examen> list = new LinkedList<>();
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT ID,NOMBRE,IDMATERIA,IDESTADOEXAMEN FROM EXAMENES");
+
+            while (rs.next()) {
+                Examen examen = new Examen();
+                examen.setId(rs.getInt("id"));
+                examen.setNombre(rs.getString("nombre"));
+                examen.setIdMateria(rs.getInt("idmateria"));
+                examen.setIdEstadoExamen(rs.getInt("idestadoexamen"));
+                list.add(examen);
+            }
+
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -16,42 +16,46 @@
     <ui:insert name="navbar">
         <ui:include src="../templates/navbar.xhtml" />
     </ui:insert>
-    <div class="row">
-        <div class="jumbotron fondo">
-            <h1>Exámenes</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Listado de Materias</h1>
+                <h:button styleClass="btn btn-primary right" outcome="nuevamateria.xhtml" value="Nueva Materia" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h:dataTable value="#{examenController.all}" var="examen"
+                             styleClass="table table-striped">
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                        #{examen.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Materia</f:facet>
+                        #{examen.materia.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Estado</f:facet>
+                        #{examen.estado.descripcion}
+                    </h:column>
+                    <h:column>
+                        <h:form>
+                            <h:commandButton value="Editar" action="#{examenController.editView(examen.id)}" styleClass="btn btn-info"/>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+                        <h:form>
+                            <h:commandButton value="Borrar" action="#{examenController.delete(examen.id)}" styleClass="btn btn-danger"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="container">
-            <c:choose>
-                <c:when test="#{ExamenController.findAll()}">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Exámen</th>
-                                <th>Materia</th>
-                                <th>Editar</th>
-                                <th>Preguntas</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <ui:repeat value="#{ExamenController.findAll(). > 0}" var="examen">
-                                <tr>
-                                    <td>#{examen.nombre}</td>
-                                    <td>#{examen.materia.nombre}</td>
-                                    <td><a href="#{examenController.update()}" class="btn btn-success" ><span class="glyphicon glyphicon-edit"></span></a>  </td>
-                                    <td><h:commandButton action="#{examenController.agregarPregunta(examen.id)}" styleClass="btn btn-primary" </td>
-                                </tr>
-                            </ui:repeat>
-                        </tbody>
-                    </table>
-                </c:when>
-                <c:otherwise>
-                    <p>No se encuentra ningún exámen en la base de datos.</p>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </div>
+
+
 
 
     <ui:insert name="scripts">

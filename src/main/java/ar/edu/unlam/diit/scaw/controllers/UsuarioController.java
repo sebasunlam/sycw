@@ -90,7 +90,7 @@ public class UsuarioController implements Serializable {
 
         usuarioService.update(this.usuario);
 
-        return "usuario/update";
+        return "usuario/index";
     }
 
     public String update(String path) {
@@ -99,6 +99,8 @@ public class UsuarioController implements Serializable {
 
         return path;
     }
+
+
 
     public String aprobarUsuario(Integer usuarioId) {
 
@@ -137,9 +139,10 @@ public class UsuarioController implements Serializable {
         return path;
     }
 
+
     public String logout() {
         SessionUtils.destroy();
-        return "login";
+        return "login.xml";
     }
 
     public static long getSerialversionuid() {

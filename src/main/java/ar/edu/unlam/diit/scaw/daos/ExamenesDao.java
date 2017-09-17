@@ -2,6 +2,8 @@ package ar.edu.unlam.diit.scaw.daos;
 
 import ar.edu.unlam.diit.scaw.entities.Examen;
 
+import java.util.List;
+
 public interface ExamenesDao {
     /**
      * Inserta un nuevo registro en la tabla examen
@@ -28,4 +30,6 @@ public interface ExamenesDao {
      * @return Examen correspondiente
      */
     Examen get(int examenId);
+
+    List<Examen> getAll();
 }

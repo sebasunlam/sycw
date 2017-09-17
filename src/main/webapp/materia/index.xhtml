@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Listado de Materia</h1>
+                <h1>Listado de Materias</h1>
                 <h:button styleClass="btn btn-primary right" outcome="nuevamateria.xhtml" value="Nueva Materia" />
             </div>
         </div>
@@ -35,12 +35,12 @@
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandButton value="test" action="#{materiaController.editView(materia.id)}"/>
+                            <h:commandButton value="Editar" action="#{materiaController.editView(materia.id)}" styleClass="btn btn-info"/>
                         </h:form>
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandButton value="Borrar" action="#{materiaController.delete(materia.id)}"/>
+                            <h:commandButton value="Borrar" action="#{materiaController.delete(materia.id)}" styleClass="btn btn-danger"/>
                         </h:form>
                     </h:column>
                 </h:dataTable>

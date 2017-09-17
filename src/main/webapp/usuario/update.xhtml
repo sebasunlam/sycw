@@ -23,6 +23,8 @@
             <div class="col-md-12">
                 <h1>Edit Usuario</h1>
                 <h:form styleClass="">
+                    <h:inputHidden value="#{usuarioController.usuario.id}"></h:inputHidden>
+                    <h:inputHidden value="#{usuarioController.usuario.estadoId}"></h:inputHidden>
                     <ui:insert name="scripts">
                         <ui:include src="form.xhtml"/>
                     </ui:insert>

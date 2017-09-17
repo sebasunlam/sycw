@@ -82,7 +82,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Usuarios WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT EMAIL,PASSWORD,ID,APELLIDO,NOMBRE,IDESTADOUSUARIO FROM Usuarios WHERE id = ?");
             stmt.setInt(1, usuarioId);
 
             ResultSet rs = stmt.executeQuery();
@@ -120,7 +120,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
             query = conn.createStatement();
 
-            ResultSet rs = query.executeQuery("SELECT * FROM Usuarios");
+            ResultSet rs = query.executeQuery("SELECT EMAIL,PASSWORD,id,APELLIDO,NOMBRE,IDESTADOUSUARIO FROM Usuarios");
 
             while (rs.next()) {
 
@@ -129,6 +129,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
                 Integer id = rs.getInt("id");
                 String apellido = rs.getString("apellido");
                 String nombre = rs.getString("nombre");
+                Integer estadoUsuarioId = rs.getInt("idEstadoUsuario");
 
                 Usuario usuario = new Usuario();
                 usuario.setEmail(eMail);
@@ -136,6 +137,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
                 usuario.setId(id);
                 usuario.setApellido(apellido);
                 usuario.setNombre(nombre);
+                usuario.setEstadoId(estadoUsuarioId);
 
                 ll.add(usuario);
             }
@@ -164,12 +166,14 @@ public class UsuarioDaoImpl implements UsuarioDao {
             stmt.setString(1, usuario.getEmail());
 
             ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
                 addRoles(usuario.getRole(), rs.getInt("ID"));
             }
 
             conn.close();
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
     }
@@ -180,11 +184,13 @@ public class UsuarioDaoImpl implements UsuarioDao {
         stmtDelete.setInt(1, usuarioId);
         stmtDelete.executeUpdate();
 
-        for (Role role : roles) {
+        for (Integer i = 0; i < roles.size(); i++) {
 
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO ROLESUSUARIOS (IDUSUARIO,IDROL) VALUES (?,?)");
             stmt.setInt(1, usuarioId);
-            stmt.setInt(2, role.getId());
+            Role role = roles.get(i);
+            Integer roleId = Integer.parseInt(roles.get(i).toString());
+            stmt.setInt(2, roleId);
             stmt.executeUpdate();
         }
     }
