@@ -23,6 +23,7 @@ public class Usuario implements Serializable {
 //	@ManagedProperty(value = "#{roles}")
 	private List<Role> roles;
 	private List<Materia> materias;
+	private List<String> selectedRoles;
 
 	public Usuario() {
 	}
@@ -118,4 +119,11 @@ public class Usuario implements Serializable {
 		this.materias = materias;
 	}
 
+	public List<String> getSelectedRoles() {
+		return selectedRoles;
+	}
+
+	public void setSelectedRoles(List<String> selectedRoles) {
+		this.selectedRoles = selectedRoles;
+	}
 }

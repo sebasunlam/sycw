@@ -27,11 +27,19 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <h:dataTable value="#{materiaController.findAll}" var="materia"
+                <h:dataTable value="#{materiaController.getAll()}" var="materia"
                              styleClass="table table-striped">
                     <h:column>
                         <f:facet name="header">Nombre</f:facet>
                         #{materia.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Estado</f:facet>
+                        #{materia.estado.descripcion}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Docente</f:facet>
+                        #{materia.docenteTitular.nombre} #{materia.docenteTitular.apellido}
                     </h:column>
                     <h:column>
                         <h:form>

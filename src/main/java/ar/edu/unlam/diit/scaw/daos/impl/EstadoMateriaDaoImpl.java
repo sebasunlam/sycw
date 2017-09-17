@@ -23,7 +23,7 @@ public class EstadoMateriaDaoImpl implements EstadoMateriaDao {
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT id,descripcion FROM EstadoMateria WHERE id=?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT id,descripcion FROM ESTADOSMATERIAS WHERE id=?");
             stmt.setInt(1, estadoUsuarioId);
             ResultSet rs = stmt.executeQuery();
 
@@ -51,7 +51,7 @@ public class EstadoMateriaDaoImpl implements EstadoMateriaDao {
             conn = (dataSource.dataSource()).getConnection();
 
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id,descripcion FROM EstadoMateria");
+            ResultSet rs = stmt.executeQuery("SELECT id,descripcion FROM ESTADOSMATERIAS");
 
             while (rs.next()) {
                 EstadoMateria estadoMateria = new EstadoMateria();

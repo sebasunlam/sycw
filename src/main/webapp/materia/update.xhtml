@@ -24,6 +24,7 @@
             <div class="col-md-12">
                 <h1>Editar Materia</h1>
                 <h:form styleClass="">
+                    <h:inputHidden value="#{materiaController.materia.id}"></h:inputHidden>
                     <ui:insert name="scripts">
                         <ui:include src="form.xhtml"/>
                     </ui:insert>

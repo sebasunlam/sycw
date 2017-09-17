@@ -41,7 +41,7 @@ public class MateriasDaoImpl implements MateriasDao{
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("UPDATE Materias SET nombre=?,password=?,idestadomateria=?,iddocentetitular=? WHERE id=?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Materias SET NOMBRE=?,IDESTADOMATERIA=?,IDDOCENTETITULAR=? WHERE id=?");
 
             stmt.setString(1, materia.getNombre());
             stmt.setInt(2, materia.getEstadoId());
@@ -84,8 +84,8 @@ public class MateriasDaoImpl implements MateriasDao{
                 materia = new Materia();
                 materia.setId(rs.getInt("id"));
                 materia.setNombre(rs.getString("nombre"));
-                materia.setEstadoId(rs.getInt("nombre"));
-                materia.setDocenteId(rs.getInt("nombre"));
+                materia.setEstadoId(rs.getInt("IDESTADOMATERIA"));
+                materia.setDocenteId(rs.getInt("IDDOCENTETITULAR"));
             }
 
             conn.close();

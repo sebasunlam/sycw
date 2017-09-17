@@ -85,11 +85,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void cambiarEstadoUsuario(Integer usuarioId, Integer estadoUsuarioId) {
-
-        Usuario usuario = usuarioHsql.get(usuarioId);
-        usuario.setEstadoId(estadoUsuarioId);
-        usuarioHsql.update(usuario);
-
+        usuarioHsql.cambiarEstado(usuarioId,estadoUsuarioId);
     }
 
     @Override

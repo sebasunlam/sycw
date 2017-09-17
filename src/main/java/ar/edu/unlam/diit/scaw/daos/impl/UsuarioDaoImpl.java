@@ -168,7 +168,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                addRoles(usuario.getRole(), rs.getInt("ID"));
+                addRoles(usuario.getSelectedRoles(), rs.getInt("ID"));
             }
 
             conn.close();
@@ -178,19 +178,17 @@ public class UsuarioDaoImpl implements UsuarioDao {
         }
     }
 
-    private void addRoles(List<Role> roles, Integer usuarioId) throws SQLException {
+    private void addRoles(List<String> roles, Integer usuarioId) throws SQLException {
 
         PreparedStatement stmtDelete = conn.prepareStatement("DELETE FROM ROLESUSUARIOS WHERE IDUSUARIO=?");
         stmtDelete.setInt(1, usuarioId);
         stmtDelete.executeUpdate();
 
-        for (Integer i = 0; i < roles.size(); i++) {
+        for (String roleId:roles) {
 
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO ROLESUSUARIOS (IDUSUARIO,IDROL) VALUES (?,?)");
             stmt.setInt(1, usuarioId);
-            Role role = roles.get(i);
-            Integer roleId = Integer.parseInt(roles.get(i).toString());
-            stmt.setInt(2, roleId);
+            stmt.setInt(2, Integer.parseInt(roleId));
             stmt.executeUpdate();
         }
     }
@@ -213,7 +211,27 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
             stmt.executeUpdate();
 
-            addRoles(usuario.getRole(), usuario.getId());
+            addRoles(usuario.getSelectedRoles(), usuario.getId());
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void cambiarEstado(Integer usuarioId,Integer estadoId) {
+
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement("UPDATE Usuarios SET idestadousuario=? WHERE id=?");
+
+            stmt.setInt(1, estadoId);
+            stmt.setInt(2, usuarioId);
+
+            stmt.executeUpdate();
 
             conn.close();
         } catch (SQLException e) {

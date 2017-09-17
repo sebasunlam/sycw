@@ -7,6 +7,8 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import ar.edu.unlam.diit.scaw.entities.Role;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
@@ -28,6 +30,7 @@ public class UsuarioController implements Serializable {
     private List<String> loginErrors = new LinkedList<>();
 
     UsuarioService usuarioService;
+
 
     public UsuarioController() {
         super();
@@ -90,7 +93,7 @@ public class UsuarioController implements Serializable {
 
         usuarioService.update(this.usuario);
 
-        return "usuario/index";
+        return "/usuario/index.xhtml";
     }
 
     public String update(String path) {
@@ -108,7 +111,7 @@ public class UsuarioController implements Serializable {
         //Si el usuario no existe se devulve un not found para que el sistema no lance una excepcion
         if (usuario != null) {
             usuarioService.cambiarEstadoUsuario(usuarioId, 2);
-            return "usuario/index";
+            return "/usuario/index";
         }
         return "notfound";
     }
@@ -119,7 +122,7 @@ public class UsuarioController implements Serializable {
         //Si el usuario no existe se devulve un not found para que el sistema no lance una excepcion
         if (usuario != null) {
             usuarioService.cambiarEstadoUsuario(usuarioId, 3);
-            return "usuario/index";
+            return "/usuario/index";
         }
 
         return "notfound";
@@ -127,7 +130,7 @@ public class UsuarioController implements Serializable {
 
     public String delete(Integer usuarioId) {
         usuarioService.delete(usuarioId);
-        return "usuario/index";
+        return "/usuario/index";
     }
 
     public String get(Integer usuarioId, String path) {
@@ -142,7 +145,7 @@ public class UsuarioController implements Serializable {
 
     public String logout() {
         SessionUtils.destroy();
-        return "login.xml";
+        return "/login.xml";
     }
 
     public static long getSerialversionuid() {

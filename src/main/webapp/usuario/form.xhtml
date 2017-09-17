@@ -26,8 +26,8 @@
         <h:inputText value="#{usuarioController.usuario.email}" id="email" styleClass="form-control"></h:inputText>
     </div>
     <div class="form-group">
-        <label for="docente">Role</label>
-        <h:selectManyListbox styleClass="form-control" value="#{usuarioController.usuario.role}" id="docente">
+        <label for="role">Role</label>
+        <h:selectManyListbox styleClass="form-control" value="#{usuarioController.usuario.selectedRoles}" id="role">
             <c:forEach var="role" items="#{roleController.findAll}">
                 <f:selectItem itemValue ="#{role.id}" itemLabel ="#{role.descripcion}"/>
             </c:forEach>

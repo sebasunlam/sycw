@@ -50,4 +50,6 @@ public interface UsuarioDao {
 	 */
 	Boolean userExist(String email);
 
+	void cambiarEstado(Integer usuarioId,Integer estadoId);
+
 }

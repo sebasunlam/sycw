@@ -62,6 +62,11 @@ public class MateriaServiceImpl implements MateriaService {
 
     @Override
     public List<Materia> getAll() {
-        return materiasDao.getAll();
+        List<Materia> materias = materiasDao.getAll();
+        for (Materia materia: materias) {
+            materia.setEstado(estadoMateriaService.get(materia.getEstadoId()));
+            materia.setDocenteTitular(usuarioService.get(materia.getDocenteId()));
+        }
+        return materias;
     }
 }

@@ -31,7 +31,7 @@ public class ExamenController implements Serializable {
 
         examenService.save(this.examen);
 
-        return "examen/index";
+        return "/examen/index";
     }
 
     public String delete(Integer Id) {
@@ -39,12 +39,12 @@ public class ExamenController implements Serializable {
         this.examen = examenService.get(Id);
 
         if (examen == null) {
-            return "notfound";
+            return "/notfound";
         }
 
         examenService.delete(Id);
 
-        return "examen/index";
+        return "/examen/index";
     }
 
     public String update(String path) {
@@ -58,7 +58,7 @@ public class ExamenController implements Serializable {
         this.examen = examenService.get(Id);
 
         if (examen == null) {
-            return "notfound";
+            return "/notfound";
         }
         return path;
     }

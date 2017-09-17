@@ -22,9 +22,9 @@ public class MateriaController implements Serializable{
     private static final long serialVersionUID = 1L;
 
     //@ManagedProperty(value = "#{materia}")
-    private Materia materia = null;
-    private Usuario docente = null;
-    private List<Usuario> alumnos = null;
+    private Materia materia = new Materia();
+
+
 
     MateriaService materiaService;
     private List<String> errors = new LinkedList<>();
@@ -40,20 +40,20 @@ public class MateriaController implements Serializable{
 
     public String save(){
         materiaService.save(this.materia);
-        return "materia/index";
+        return "/materia/index";
     }
 
     public String update(){
         materiaService.update(this.materia);
-        return "materia/index";
+        return "/materia/index";
     }
 
     public String delete(Integer materiaId){
         materiaService.delete(materiaId);
-        return "materia/index";
+        return "/materia/index";
     }
 
-    public List<Materia> getFindAll(){
+    public List<Materia> getAll(){
         return materiaService.getAll();
     }
 
@@ -67,22 +67,6 @@ public class MateriaController implements Serializable{
 
     public void setErrors(List<String> errors) {
         this.errors = errors;
-    }
-
-    public Usuario getDocente() {
-        return docente;
-    }
-
-    public void setDocente(Usuario docente) {
-        this.docente = docente;
-    }
-
-    public List<Usuario> getAlumnos() {
-        return alumnos;
-    }
-
-    public void setAlumnos(List<Usuario> alumnos) {
-        this.alumnos = alumnos;
     }
 
     public String editView(Integer id) {

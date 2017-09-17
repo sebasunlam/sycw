@@ -17,8 +17,16 @@
         <h:inputText value="#{materiaController.materia.nombre}" id="nombre" styleClass="form-control"></h:inputText>
     </div>
     <div class="form-group">
-        <label for="docente">Materia</label>
-        <h:selectOneMenu styleClass="form-control" value="#{materiaController.docente.id}" id="docente">
+        <label for="estado">Estado</label>
+        <h:selectOneMenu styleClass="form-control" value="#{materiaController.materia.estadoId}" id="estado">
+            <c:forEach var="estado" items="#{estadoMateriaController.getAll()}">
+                <f:selectItem itemValue ="#{estado.id}" itemLabel ="#{estado.descripcion}"/>
+            </c:forEach>
+        </h:selectOneMenu>
+    </div>
+    <div class="form-group">
+        <label for="docente">Docente</label>
+        <h:selectOneMenu styleClass="form-control" value="#{materiaController.materia.docenteId}" id="docente">
             <c:forEach var="docente" items="#{usuarioController.findAll}">
                 <f:selectItem itemValue ="#{docente.id}" itemLabel ="#{docente.nombre} #{docente.apellido}"/>
             </c:forEach>
