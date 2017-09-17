@@ -1,18 +1,22 @@
 package ar.edu.unlam.diit.scaw.entities;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
 import java.util.List;
 
+@ManagedBean(name = "examen",eager = true)
+@RequestScoped
 public class Examen implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+    private Integer idMateria;
+    private Integer idEstadoExamen;
     private String nombre;
     private EstadoExamen estado;
     private List<Pregunta> preguntas;
-    private Integer idMateria;
-    private Materia materia;
 
 
     public Integer getId() {
@@ -48,20 +52,18 @@ public class Examen implements Serializable{
     }
 
     public Integer getIdMateria() {
-        return idMateria;
+        return this.idMateria;
+    }
+
+    public Integer getIdEstadoExamen() {
+        return this.idEstadoExamen;
     }
 
     public void setIdMateria(Integer idMateria) {
         this.idMateria = idMateria;
     }
 
-
-    public Materia getMateria() {
-        return materia;
+    public void setIdEstadoExamen(Integer idEstadoExamen) {
+        this.idEstadoExamen = idEstadoExamen;
     }
-
-    public void setMateria(Materia materia) {
-        this.materia = materia;
-    }
-
 }

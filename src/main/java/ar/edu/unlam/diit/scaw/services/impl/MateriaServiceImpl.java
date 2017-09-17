@@ -38,8 +38,12 @@ public class MateriaServiceImpl implements MateriaService {
     @Override
     public Materia get(Integer materiaId) {
         Materia materia = materiasDao.get(materiaId);
-        materia.setDocenteTitular(usuarioService.get(materia.getDocenteId()));
-        materia.setEstado(estadoMateriaService.get(materia.getEstadoId()));
+        if (materia.getDocenteId() != null){
+            materia.setDocenteTitular(usuarioService.get(materia.getDocenteId()));
+        }
+        if (materia.getEstadoId() != null){
+            materia.setEstado(estadoMateriaService.get(materia.getEstadoId()));
+        }
         //todo: deben asignarse el resto de las clases que le corresponden a la materia, examenes alumnos
         return materia;
     }

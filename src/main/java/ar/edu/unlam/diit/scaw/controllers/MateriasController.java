@@ -2,41 +2,49 @@ package ar.edu.unlam.diit.scaw.controllers;
 
 
 import ar.edu.unlam.diit.scaw.entities.Materia;
+import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.MateriaService;
 import ar.edu.unlam.diit.scaw.services.impl.MateriaServiceImpl;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
-@ManagedBean(name = "materiasController", eager = true)
+@ManagedBean(name = "materiaController", eager = true)
 @RequestScoped
 public class MateriasController implements Serializable{
 
     private static final long serialVersionUID = 1L;
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
 
-    @ManagedProperty(value = "#{materia}")
+    //@ManagedProperty(value = "#{materia}")
     private Materia materia = null;
+    private Usuario docente = null;
+    private List<Usuario> alumnos = null;
 
     MateriaService materiaService;
+    private List<String> errors = new LinkedList<>();
 
     public MateriasController() {
         super();
         materiaService = new MateriaServiceImpl();
     }
 
-    public String save(Materia materia){
-        materiaService.save(materia);
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public String save(){
+        materiaService.save(this.materia);
         return "materia/index";
     }
 
-    public String update(Materia materia){
-        materiaService.update(materia);
+    public String update(){
+        materiaService.update(this.materia);
         return "materia/index";
     }
 
@@ -45,8 +53,40 @@ public class MateriasController implements Serializable{
         return "materia/index";
     }
 
-    public List<Materia> getAll(){
+    public List<Materia> getFindAll(){
         return materiaService.getAll();
     }
 
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public List<String> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<String> errors) {
+        this.errors = errors;
+    }
+
+    public Usuario getDocente() {
+        return docente;
+    }
+
+    public void setDocente(Usuario docente) {
+        this.docente = docente;
+    }
+
+    public List<Usuario> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(List<Usuario> alumnos) {
+        this.alumnos = alumnos;
+    }
+
+    public String editView(Integer id) {
+        materia = materiaService.get(id);
+        return "/materia/update";
+    }
 }
