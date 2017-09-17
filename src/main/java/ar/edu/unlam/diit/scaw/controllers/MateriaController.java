@@ -9,6 +9,8 @@ import ar.edu.unlam.diit.scaw.services.impl.MateriaServiceImpl;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -81,5 +83,10 @@ public class MateriaController implements Serializable{
 
     public void setAlumnos(List<Usuario> alumnos) {
         this.alumnos = alumnos;
+    }
+
+    public String editView(Integer id) {
+        materia = materiaService.get(id);
+        return "/materia/update";
     }
 }

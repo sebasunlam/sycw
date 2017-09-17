@@ -42,11 +42,9 @@
                         #{usuario.estado.descripcion}
                     </h:column>
                     <h:column>
-
-                        <h:outputLink value="/usuario/update.xhtml">
-                            <span class="glyphicons glyphicons-edit"></span>Edit
-                            <f:param name="id" value="#{usuario.id}" />
-                        </h:outputLink><f:facet name="header">Edit</f:facet>
+                        <h:form>
+                            <h:commandButton value="test" action="#{usuarioController.editView(usuario.id)}"/>
+                        </h:form>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Borrar</f:facet>
