@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
 import java.util.List;
+
 @ManagedBean(name = "usuario",eager = true)
 @RequestScoped
 public class Usuario implements Serializable {

@@ -21,28 +21,25 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Edit Usuario</h1>
+                <h1>Nueva Materia</h1>
                 <h:form styleClass="">
                     <ui:insert name="scripts">
                         <ui:include src="form.xhtml"/>
                     </ui:insert>
-                    <c:if test="#{usuarioController.errors.size() > 0}">
+                    <c:if test="#{materiaController.errors.size() > 0}">
                         <div class="alert alert-danger">
                             <ul>
-                                <c:forEach var="error" items="#{usuarioController.errors}">
+                                <c:forEach var="error" items="#{materiaController.errors}">
                                     <li>#{error}</li>
                                 </c:forEach>
                             </ul>
                         </div>
                     </c:if>
-                    <h:commandButton action='#{usuarioController.update()}' value="Guardar" styleClass="btn btn-primary">
+                    <h:commandButton action='#{materiaController.save()}' value="Guardar" styleClass="btn btn-primary">
                     </h:commandButton>
                 </h:form>
             </div>
         </div>
     </div>
-    <ui:insert name="scripts" >
-        <ui:include src="../templates/scripts.xhtml" />
-    </ui:insert>
 </h:body>
 </html>
