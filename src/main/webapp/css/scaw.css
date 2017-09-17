@@ -1,0 +1,7 @@
+.fondo {
+    /*background: image("../image/back-green-brillos.jpg");*/
+    background-image: url("../image/pizarron.jpg");
+    width: 100%;
+    color: whitesmoke;
+    text-shadow: 1px 1px #222222;
+}

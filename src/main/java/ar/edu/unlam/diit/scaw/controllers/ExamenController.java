@@ -26,8 +26,9 @@ public class ExamenController implements Serializable {
         service = (ExamenService) new ExamenServiceImpl();
     }
 
-    public void save(){
+    public String save(){
         service.save(this.examen);
+        return "examen/index";
     }
 
     public String delete(Integer Id) {
@@ -49,5 +50,14 @@ public class ExamenController implements Serializable {
             return "notfound";
         }
         return path;
+    }
+
+    public String cargarExamen(Integer idMateria){
+        this.examen.setIdMateria(idMateria);
+        return "examen/save";
+    }
+
+    public String agregarPregunta(Integer idExamen){
+        return null;
     }
 }

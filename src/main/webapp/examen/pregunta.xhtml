@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+    <title>Title</title>
+    <ui:insert name="header">
+        <ui:include src="../templates/header.xhtml"/>
+    </ui:insert>
+</head>
+<h:body>
+    <ui:insert name="navbar">
+        <ui:include src="../templates/navbar.xhtml" />
+    </ui:insert>
+    <div class="container">
+        <div class="row">
+            <div class="jumbotron fondo">
+                <h1>Carga de preguntas</h1>
+            </div>
+        </div>
+        <div class="row">
+            <h:form >
+                <div class="input-group">
+                    <h:outputLabel >Ingrese la primer pregunta:</h:outputLabel>
+                    <h:inputText value="preguntaController.pregunta1" styleClass="form-control"/>
+                </div>
+                <div class="input-group">
+                    <h:outputLabel >Ingrese la segunda pregunta:</h:outputLabel>
+                    <h:inputText value="preguntaController.pregunta2" styleClass="form-control"/>
+                </div>
+                <div class="input-group">
+                    <h:outputLabel >Ingrese la tercera pregunta:</h:outputLabel>
+                    <h:inputText value="preguntaController.pregunta3" styleClass="form-control"/>
+                </div>
+                <div class="input-group">
+                    <h:outputLabel >Ingrese la cuarta pregunta:</h:outputLabel>
+                    <h:inputText value="preguntaController.pregunta4" styleClass="form-control"/>
+                </div>
+                <div class="input-group">
+                    <h:outputLabel >Ingrese la quinta pregunta:</h:outputLabel>
+                    <h:inputText value="preguntaController.pregunta5" styleClass="form-control"/>
+                </div>
+                <h:commandButton styleClass="btn btn-success" action="#{preguntaController.save()}"/>
+            </h:form>
+        </div>
+    </div>
+
+</h:body>
+</html>
