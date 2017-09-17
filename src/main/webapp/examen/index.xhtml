@@ -31,14 +31,16 @@
                                 <th>Exámen</th>
                                 <th>Materia</th>
                                 <th>Editar</th>
+                                <th>Preguntas</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <ui:repeat value="#{ExamenController.findAll()}" var="examen">
+                            <ui:repeat value="#{ExamenController.findAll(). > 0}" var="examen">
                                 <tr>
                                     <td>#{examen.nombre}</td>
                                     <td>#{examen.materia.nombre}</td>
-                                    <td><a href="" class="btn btn-info" ><span class="glyphicon glyphicon-edit"></span></a>  </td>
+                                    <td><a href="#{examenController.update()}" class="btn btn-success" ><span class="glyphicon glyphicon-edit"></span></a>  </td>
+                                    <td><h:commandButton action="#{examenController.agregarPregunta(examen.id)}" styleClass="btn btn-primary" </td>
                                 </tr>
                             </ui:repeat>
                         </tbody>

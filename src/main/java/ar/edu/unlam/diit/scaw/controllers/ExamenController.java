@@ -56,4 +56,8 @@ public class ExamenController implements Serializable {
         this.examen.setIdMateria(idMateria);
         return "examen/save";
     }
+
+    public String agregarPregunta(Integer idExamen){
+        return null;
+    }
 }

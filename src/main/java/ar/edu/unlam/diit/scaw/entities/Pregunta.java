@@ -10,6 +10,8 @@ public class Pregunta implements Serializable {
     private Integer id;
     private String pregunta;
     private List<Respuesta> respuestas;
+    private Integer idExamen;
+
 
     public Integer getId() {
         return id;
