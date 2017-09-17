@@ -53,7 +53,7 @@
                             </c:choose>
                             <br>
                             <a class="btn btn-info" href="" data-toggle="modal" data-target="#editarMateria">editar materia</a>
-                            <a class="btn btn-success" href="" data-toggle="modal" data-target="#agregarExamen">Agregar examen</a>
+                            <a class="btn btn-success" href="#{ExamenController.cargarExamen(materia.getId())}" data-toggle="modal" data-target="#agregarExamen">Agregar examen</a>
                             <a class="btn btn-primary" href="" data-toggle="modal" data-target="#deshabilitarExamen">desabilitar examen</a>
                         </div>
                     </div>
@@ -63,31 +63,7 @@
     </div>
     <!-- Modal editar materia -->
     <!-- Modal agregar examen -->
-    <div id="agregarExamen" class="modal fade" role="dialog">
-        <div class="modal-dialog">
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2>Añadir un examen</h2>
-                </div>
-                <div class="modal-body">
-                    <h:form styleClass="">
-                        <div class="form-group">
-                            <h:outputLabel for="descripcion" >Agrega el nombre del examen</h:outputLabel>
-                            <h:inputText value="#{examenController.examen.nombre}" styleClass="form-control"></h:inputText>
-                        </div>
-                        <!-- boton submit -->
-                        <h:commandButton value="Añadir examen" action="#{examenController.save()}" styleClass="btn btn-success" />
-                    </h:form>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Modal deshabilitar examen -->
 
     <ui:insert name="scripts">

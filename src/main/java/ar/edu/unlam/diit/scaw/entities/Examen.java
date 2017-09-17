@@ -11,8 +11,8 @@ public class Examen implements Serializable{
     private String nombre;
     private EstadoExamen estado;
     private List<Pregunta> preguntas;
-
     private Integer idMateria;
+    private Materia materia;
 
 
     public Integer getId() {
@@ -50,4 +50,18 @@ public class Examen implements Serializable{
     public Integer getIdMateria() {
         return idMateria;
     }
+
+    public void setIdMateria(Integer idMateria) {
+        this.idMateria = idMateria;
+    }
+
+
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materia = materia;
+    }
+
 }
