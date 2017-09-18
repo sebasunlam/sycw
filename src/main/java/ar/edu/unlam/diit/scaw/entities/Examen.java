@@ -19,6 +19,9 @@ public class Examen implements Serializable{
     private List<Pregunta> preguntas;
     private Materia materia;
 
+    public Examen(){
+
+    }
 
     public Integer getId() {
         return id;

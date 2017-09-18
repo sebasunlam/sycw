@@ -19,11 +19,11 @@ public class ExamenDaoImpl implements ExamenesDao {
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO EXAMENES (ID,NOMBRE,IDMATERIA,IDESTADOEXAMEN)VALUES(?, ?, ?, ?)");
-            stmt.setInt(1, examen.getId());
-            stmt.setString(2, examen.getNombre());
-            stmt.setInt(3, examen.getIdMateria());
-            stmt.setInt(4, examen.getIdEstadoExamen());
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO EXAMENES (NOMBRE,IDMATERIA,IDESTADOEXAMEN)VALUES(?, ?, ?)");
+
+            stmt.setString(1, examen.getNombre());
+            stmt.setInt(2, examen.getIdMateria());
+            stmt.setInt(3, examen.getIdEstadoExamen());
 
             stmt.executeUpdate();
             conn.close();

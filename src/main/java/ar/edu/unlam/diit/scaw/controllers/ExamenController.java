@@ -1,6 +1,7 @@
 package ar.edu.unlam.diit.scaw.controllers;
 
 import ar.edu.unlam.diit.scaw.entities.Examen;
+import ar.edu.unlam.diit.scaw.entities.Pregunta;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.ExamenService;
 import ar.edu.unlam.diit.scaw.services.impl.ExamenServiceImpl;
@@ -9,6 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 @ManagedBean(name = "examenController", eager = true)
@@ -20,14 +22,22 @@ public class ExamenController implements Serializable {
     @ManagedProperty(value = "#{examen}")
     private Examen examen = null;
 
+    public Examen getExamen() {
+        return examen;
+    }
+
+    public void setExamen(Examen examen) {
+        this.examen = examen;
+    }
+
     ExamenService examenService;
 
-    public ExamenController(){
+    public ExamenController() {
         super();
         examenService = new ExamenServiceImpl();
     }
 
-    public String save(){
+    public String save() {
 
         examenService.save(this.examen);
 
@@ -47,11 +57,11 @@ public class ExamenController implements Serializable {
         return "/examen/index";
     }
 
-    public String update(String path) {
+    public String update() {
 
         examenService.update(this.examen);
 
-        return path;
+        return "/examen/index";
     }
 
     public String get(Integer Id, String path) {
@@ -63,14 +73,12 @@ public class ExamenController implements Serializable {
         return path;
     }
 
-    public List<Examen> getAll(){
+    public List<Examen> getAll() {
         return examenService.findAll();
     }
 
     public String editView(Integer id) {
         examen = examenService.get(id);
-        return "/examenes/update";
+        return "/examen/update";
     }
-
-
 }

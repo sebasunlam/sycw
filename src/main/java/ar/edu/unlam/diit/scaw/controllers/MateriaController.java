@@ -21,10 +21,15 @@ public class MateriaController implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    //@ManagedProperty(value = "#{materia}")
-    private Materia materia = new Materia();
+    @ManagedProperty(value = "#{materia}")
+    private Materia materia = null;
+    public Materia getMateria() {
+        return materia;
+    }
 
-
+    public void setMateria(Materia materia) {
+        this.materia = materia;
+    }
 
     MateriaService materiaService;
     private List<String> errors = new LinkedList<>();
@@ -34,9 +39,7 @@ public class MateriaController implements Serializable{
         materiaService = new MateriaServiceImpl();
     }
 
-    public Materia getMateria() {
-        return materia;
-    }
+
 
     public String save(){
         materiaService.save(this.materia);

@@ -20,6 +20,9 @@ public class Materia implements Serializable {
     private List<Usuario> alumnos;
     private List<Examen> examenes;
 
+    public Materia(){
+
+    }
     public Integer getId() {
         return id;
     }

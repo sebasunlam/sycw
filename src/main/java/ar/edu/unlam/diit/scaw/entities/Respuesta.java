@@ -8,7 +8,9 @@ public class Respuesta implements Serializable{
 
     private Integer id;
     private String respuesta;
+    private Integer idTipoRespuesta;
     private TipoRespuesta tipo;
+    private Boolean correcta;
 
     public Integer getId() {
         return id;
@@ -32,5 +34,21 @@ public class Respuesta implements Serializable{
 
     public void setTipo(TipoRespuesta tipo) {
         this.tipo = tipo;
+    }
+
+    public Boolean getCorrecta() {
+        return correcta;
+    }
+
+    public void setCorrecta(Boolean correcta) {
+        this.correcta = correcta;
+    }
+
+    public Integer getIdTipoRespuesta() {
+        return idTipoRespuesta;
+    }
+
+    public void setIdTipoRespuesta(Integer idTipoRespuesta) {
+        this.idTipoRespuesta = idTipoRespuesta;
     }
 }

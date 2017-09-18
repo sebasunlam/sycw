@@ -1,6 +1,7 @@
 package ar.edu.unlam.diit.scaw.entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Pregunta implements Serializable {
@@ -11,7 +12,13 @@ public class Pregunta implements Serializable {
     private String pregunta;
     private List<Respuesta> respuestas;
     private Integer idExamen;
+    private Examen examen;
 
+
+
+    public Pregunta() {
+
+    }
 
     public Integer getId() {
         return id;
@@ -35,5 +42,21 @@ public class Pregunta implements Serializable {
 
     public void setRespuestas(List<Respuesta> respuestas) {
         this.respuestas = respuestas;
+    }
+
+    public Integer getIdExamen() {
+        return idExamen;
+    }
+
+    public void setIdExamen(Integer idExamen) {
+        this.idExamen = idExamen;
+    }
+
+    public Examen getExamen() {
+        return examen;
+    }
+
+    public void setExamen(Examen examen) {
+        this.examen = examen;
     }
 }

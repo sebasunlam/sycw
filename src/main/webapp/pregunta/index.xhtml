@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
+<h:head>
+    <title>UNLAM - Materias</title>
+    <ui:insert name="header">
+        <ui:include src="../templates/header.xhtml"/>
+    </ui:insert>
+</h:head>
+
+<h:body>
+    <ui:insert name="header">
+        <ui:include src="/templates/navbar.xhtml"/>
+    </ui:insert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Listado de Materias</h1>
+                <h:form>
+                    <h:commandButton value="Nueva" action="#{preguntaController.navigateSave()}"
+                                     styleClass="btn btn-primary"/>
+                </h:form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h:dataTable value="#{preguntaController.preguntas}" var="item"
+                             styleClass="table table-striped">
+                    <h:column>
+                        <f:facet name="header">Pregunta</f:facet>
+                        #{item.pregunta}
+                    </h:column>
+                    <!--<h:column>-->
+                        <!--<h:form>-->
+                            <!--<h:commandButton value="Preguntas" action="#{preguntaController.navigateIndex(item.id)}"-->
+                                             <!--styleClass="btn btn-warning"/>-->
+                        <!--</h:form>-->
+                    <!--</h:column>-->
+                    <h:column>
+                        <h:form>
+                            <h:commandButton value="Editar" action="#{preguntaController.navigateEdita(item.id)}"
+                                             styleClass="btn btn-info"/>
+                        </h:form>
+                    </h:column>
+                    <!--<h:column>-->
+                        <!--<h:form>-->
+                            <!--<h:commandButton value="Borrar" action="#{examenController.delete(item.id)}"-->
+                                             <!--styleClass="btn btn-danger"/>-->
+                        <!--</h:form>-->
+                    <!--</h:column>-->
+                </h:dataTable>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

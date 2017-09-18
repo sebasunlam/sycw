@@ -17,45 +17,11 @@
         <ui:include src="/templates/navbar.xhtml"/>
     </ui:insert>
     <div class="container">
-        <h2>Bienvenido. A continuación se visualizan los usuarios habilitados, mostrando cómo JSF renderiza la página con los resultados obtenidos</h2>
-        <h:form>
-            <h:outputLabel value="#{userData.nombre}"/>
-            <br/>
-            <br/>
-            <h:outputLabel value="#{userData.apellido}"/>
-            <br/>
-            <br/>
-            <h:outputLabel value="#{userData.email}"/>
-            <br/>
-            <br/>
-            <!--Ejemplo de como preguntar si el usuario tiene roles-->
-            <h:outputLabel rendered="#{userData.hasRole('Administrador')}" value="Admin"/>
-            <h:outputLabel rendered="#{userData.hasRole('Docente')}" value="Docente"/>
-            <h:outputLabel rendered="#{userData.hasRole('Alumno')}" value="Alumno"/>
-        </h:form>
+        <div class="jumbotron">
+            <h1>UNLAM - Sistema de evaluación</h1>
+            <p>Bienvenido #{userData.nombre} #{userData.apellido}!</p>
 
-        <br/>
-        <br/>
-
-        <h:dataTable value="#{usuarioController.findAll}" var="usuario"
-                     styleClass="table table-striped">
-
-            <h:column>
-                <f:facet name="header">Nombre</f:facet>
-                #{usuario.nombre}
-            </h:column>
-
-            <h:column>
-                <f:facet name="header">Apellido</f:facet>
-                #{usuario.apellido}
-            </h:column>
-
-            <h:column>
-                <f:facet name="header">Email</f:facet>
-                #{usuario.email}
-            </h:column>
-
-        </h:dataTable>
+        </div>
     </div>
     <ui:insert name="scripts">
         <ui:include src="/templates/scripts.xhtml"/>

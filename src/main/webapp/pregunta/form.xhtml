@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<ui:component>
+    <div class="form-group">
+        <label for="nombre">Pregunta</label>
+        <h:inputText value="#{preguntaController.pregunta.pregunta}" id="nombre" styleClass="form-control"></h:inputText>
+    </div>
+    <div class="form-group">
+        <label for="estado">Examen</label>
+        <h:selectOneMenu styleClass="form-control" value="#{preguntaController.pregunta.idExamen}" id="estado">
+            <c:forEach var="examen" items="#{examenController.getAll()}">
+                <f:selectItem itemValue ="#{examen.id}" itemLabel ="#{examen.nombre}"/>
+            </c:forEach>
+        </h:selectOneMenu>
+    </div>
+
+    <div class="form-group">
+        <label for="respuesta">Pregunta</label>
+        <h:inputText value="#{preguntaController.currentRespuesta.respuesta}" id="respuesta" styleClass="form-control"></h:inputText>
+    </div>
+
+    <div class="form-group">
+        <label for="tipo">Correcta</label>
+        <h:selectBooleanCheckbox value="#{preguntaController.currentRespuesta.correcta}" id="tipo" styleClass="form-control"></h:selectBooleanCheckbox>
+    </div>
+
+
+</ui:component>
+</body>
+</html>

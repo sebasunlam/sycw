@@ -64,9 +64,11 @@
                     </h:form>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Borrar</f:facet>
+                    <h:form>
+
                     <h:commandButton value="Borrar" action="#{usuarioController.delete(usuario.id)}"
                                      styleClass="btn btn-danger"/>
+                    </h:form>
                 </h:column>
             </h:dataTable>
         </div>
