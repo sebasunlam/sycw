@@ -47,13 +47,9 @@
                             <div id="collapse1" class="panel-collapse collapse in">
                                 <div class="panel-footer">
                                     <h:form>
-                                        <input type="hidden" name="examenId" value="#{pregunta.examen.id}"/>
-                                        <h:selectManyCheckbox id="grid"
-                                                              value="#{preguntaController.respuestasSeleccionadas}"
-                                                              layout="grid" columns="3">
-                                            <f:selectItems value="#{pregunta.respuestas}" var="respuesta"
-                                                           itemValue="#{respuesta.id}"
-                                                           itemLabel="#{respuesta.respuesta}"/>
+                                        <input type="hidden" name="examenId" value="#{pregunta.examen.id}" />
+                                        <h:selectManyCheckbox id="grid" value="#{preguntaController.respuestasSeleccionadas}" layout="grid" columns="3">
+                                            <f:selectItems value="#{pregunta.respuestas}" var="respuesta" itemValue = "#{respuesta.id}" itemLabel = "#{respuesta.respuesta}" />
                                         </h:selectManyCheckbox>
                                         <h:commandButton action='#{preguntaController.saveRespuestasAlumno()}'
                                                          value="Guardar Respuestas" styleClass="btn btn-primary">
