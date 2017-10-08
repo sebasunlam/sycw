@@ -36,7 +36,7 @@
                         </div>
                     </c:if>
                     <h:commandButton action='#{usuarioController.save()}' value="Guardar" styleClass="btn btn-primary">
-                    </h:commandButton>
+                        <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"></f:actionListener></h:commandButton>
                 </h:form>
             </div>
         </div>

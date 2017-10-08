@@ -38,6 +38,7 @@
                         </div>
                     </c:if>
                     <h:commandButton action='#{usuarioController.update()}' value="Guardar" styleClass="btn btn-primary">
+                        <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"></f:actionListener>
                     </h:commandButton>
                 </h:form>
             </div>

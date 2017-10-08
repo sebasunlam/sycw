@@ -43,9 +43,12 @@
                 </h:column>
                 <h:column>
                     <h:form>
+
                         <c:if test="#{usuario.estadoId != 2}">
                             <h:commandButton value="Aprobar" action="#{usuarioController.aprobarUsuario(usuario.id)}"
-                                             styleClass="btn btn-success"/>
+                                             styleClass="btn btn-success">
+                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"></f:actionListener>
+                            </h:commandButton>
                         </c:if>
                     </h:form>
                 </h:column>
@@ -53,21 +56,27 @@
                     <h:form>
                         <c:if test="#{usuario.estadoId != 3}">
                             <h:commandButton value="Rechazar" action="#{usuarioController.rechazarUsuario(usuario.id)}"
-                                             styleClass="btn btn-warning"/>
+                                             styleClass="btn btn-warning">
+                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"></f:actionListener>
+                            </h:commandButton>
                         </c:if>
                     </h:form>
                 </h:column>
                 <h:column>
                     <h:form>
                         <h:commandButton value="Editar" action="#{usuarioController.editView(usuario.id)}"
-                                         styleClass="btn btn-info"/>
+                                         styleClass="btn btn-info">
+                            <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"></f:actionListener>
+                        </h:commandButton>
                     </h:form>
                 </h:column>
                 <h:column>
                     <h:form>
 
-                    <h:commandButton value="Borrar" action="#{usuarioController.delete(usuario.id)}"
-                                     styleClass="btn btn-danger"/>
+                        <h:commandButton value="Borrar" action="#{usuarioController.delete(usuario.id)}"
+                                         styleClass="btn btn-danger">
+                            <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"></f:actionListener>
+                        </h:commandButton>
                     </h:form>
                 </h:column>
             </h:dataTable>

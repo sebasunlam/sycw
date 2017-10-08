@@ -14,6 +14,7 @@ import ar.edu.unlam.diit.scaw.entities.Role;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
 import ar.edu.unlam.diit.scaw.services.impl.UsuarioServiceImpl;
+import ar.edu.unlam.diit.scaw.utls.Authorize;
 import ar.edu.unlam.diit.scaw.utls.SessionUtils;
 
 @ManagedBean(name = "usuarioController", eager = true)
@@ -116,6 +117,7 @@ public class UsuarioController implements Serializable {
         return "notfound";
     }
 
+    @Authorize(roles = "Nada")
     public String rechazarUsuario(Integer usuarioId) {
 
         Usuario usuario = usuarioService.get(usuarioId);
