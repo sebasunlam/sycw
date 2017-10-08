@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+  <protected-views>
+      <url-pattern>login.xhtml</url-pattern>
+      <url-pattern>notAuthorized.xhtml</url-pattern>
+      <url-pattern>notfound.xhtml</url-pattern>
+      <url-pattern>welcome.xhtml</url-pattern>
+      <url-pattern>usuario/index.xhtml</url-pattern>
+      <url-pattern>usuario/save.xhtml</url-pattern>
+      <url-pattern>usuario/update.xhtml</url-pattern>
+      <url-pattern>pregunta/index.xhtml</url-pattern>
+      <url-pattern>pregunta/rendirexamen.xhtml</url-pattern>
+      <url-pattern>pregunta/save.xhtml</url-pattern>
+      <url-pattern>pregunta/update.xhtml</url-pattern>
+      <url-pattern>materia/index.xhtml</url-pattern>
+      <url-pattern>materia/nuevamateria.xhtml</url-pattern>
+      <url-pattern>materia/update.xhtml</url-pattern>
+      <url-pattern>examen/index.xhtml</url-pattern>
+      <url-pattern>examen/lista.xhtml</url-pattern>
+      <url-pattern>examen/pregunta.xhtml</url-pattern>
+      <url-pattern>examen/save.xhtml</url-pattern>
+      <url-pattern>examen/update.xhtml</url-pattern>
+      <url-pattern>docente/index.xhtml</url-pattern>
+  </protected-views>
+</faces-config>

@@ -43,6 +43,9 @@ public class UsuarioController implements Serializable {
     }
 
     private String saveUser(String returnPath, String returnError) {
+
+        errors = new LinkedList<>();
+
         if (usuarioService.userExist(this.usuario.getEmail())) {
             errors.add("El usuario ya existe");
         }
