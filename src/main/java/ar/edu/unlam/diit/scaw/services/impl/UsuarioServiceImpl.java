@@ -23,18 +23,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario login(Usuario usuario) {
         //por ejemplo modificar algo del usuario, el nombre en mayuscula
-        try {
-            String password = ESAPI.validator().getValidInput("LoginPageLogin_passwordField", usuario.getContraseña(), "SafeString", 255, true );
-            String email = ESAPI.validator().getValidInput("LoginPageLogin_emailField", usuario.getEmail(), "SafeString", 255, true );
-
-            usuario.setEmail(email);
-            usuario.setContraseña(password);
-
-
-        } catch (ValidationException e) {
-            e.printStackTrace();
-        }
-
         return usuarioHsql.login(usuario);
     }
 
