@@ -39,7 +39,11 @@ public class RoleListener extends ActionListenerImpl implements ActionListener {
         final int idx = expr.indexOf('.');
         final String target = expr.substring(0, idx).substring(2);
         final String t = expr.substring(idx + 1);
-        final String methodName = t.substring(0, t.indexOf('('));
+        final String method = t.substring(0, (t.length() - 1));
+        String methodName = method;
+        if(method.contains("(")){
+            methodName = method.substring(0, method.indexOf('('));
+        }
 
 
 

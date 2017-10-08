@@ -54,6 +54,7 @@ public class PreguntaController {
         return "/pregunta/index";
     }
 
+    @Authorize(roles = "Alumno")
     public String rendirExamen(int examenId) {
         Integer alumnoId = SessionUtils.getUser().getId();
 
@@ -68,6 +69,7 @@ public class PreguntaController {
         }
         return "/pregunta/rendirexamen";
     }
+
 
     public String addRespuesta(String path) {
 
