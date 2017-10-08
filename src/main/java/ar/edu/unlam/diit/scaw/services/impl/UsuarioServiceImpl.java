@@ -1,15 +1,13 @@
 package ar.edu.unlam.diit.scaw.services.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ar.edu.unlam.diit.scaw.daos.EstadoUsuarioDao;
 import ar.edu.unlam.diit.scaw.daos.impl.EstadoUsuarioDaoImpl;
 import ar.edu.unlam.diit.scaw.daos.impl.MateriasDaoImpl;
 import ar.edu.unlam.diit.scaw.daos.impl.UsuarioDaoImpl;
-import ar.edu.unlam.diit.scaw.entities.Materia;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
+
+import java.util.List;
 
 public class UsuarioServiceImpl implements UsuarioService {
 
