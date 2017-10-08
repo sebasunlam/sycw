@@ -6,11 +6,15 @@ import ar.edu.unlam.diit.scaw.entities.Respuesta;
 import ar.edu.unlam.diit.scaw.entities.TipoRespuesta;
 import ar.edu.unlam.diit.scaw.services.PreguntaService;
 import ar.edu.unlam.diit.scaw.services.impl.PreguntaServiceImpl;
+import ar.edu.unlam.diit.scaw.utls.SessionUtils;
 import ar.edu.unlam.diit.scaw.utls.Authorize;
 
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @ManagedBean(name = "preguntaController", eager = true)
 @SessionScoped
@@ -22,7 +26,15 @@ public class PreguntaController {
     private List<Respuesta> respuestas = null;
     private Respuesta currentRespuesta = new Respuesta();
     private List<Pregunta> preguntas = null;
+    private String[] respuestasSeleccionadas;
 
+    public String[] getRespuestasSeleccionadas() {
+        return respuestasSeleccionadas;
+    }
+
+    public void setRespuestasSeleccionadas(String[] respuestasSeleccionadas) {
+        this.respuestasSeleccionadas = respuestasSeleccionadas;
+    }
 
     public PreguntaController() {
         preguntaService = new PreguntaServiceImpl();
@@ -42,14 +54,26 @@ public class PreguntaController {
         return "/pregunta/index";
     }
 
+    public String rendirExamen(int examenId) {
+        Integer alumnoId = SessionUtils.getUser().getId();
+
+        preguntas = preguntaService.getAll(examenId);
+
+        List<Integer> respuestas = preguntaService.getRespuestasAlumnos(alumnoId, examenId);
+        Integer i = 0;
+        this.respuestasSeleccionadas = new String[respuestas.size()];
+        for (Integer idRespuesta: respuestas) {
+            this.respuestasSeleccionadas[i] = String.valueOf(idRespuesta);
+            i++;
+        }
+        return "/pregunta/rendirexamen";
+    }
 
     public String addRespuesta(String path) {
 
         if (respuestas == null) {
             respuestas = new LinkedList<>();
         }
-
-
 
         if (this.currentRespuesta.getCorrecta()) {
             currentRespuesta.setIdTipoRespuesta(1);
@@ -130,5 +154,23 @@ public class PreguntaController {
 
     public void setPreguntas(List<Pregunta> preguntas) {
         this.preguntas = preguntas;
+    }
+
+    public String saveRespuestasAlumno() {
+        Integer alumnoId = SessionUtils.getUser().getId();
+
+        Map<String,String> requestParams = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String examenId = requestParams.get("examenId");
+
+        preguntaService.setRespuestasAlumno(alumnoId, this.respuestasSeleccionadas);
+
+        List<Integer> respuestas = preguntaService.getRespuestasAlumnos(alumnoId, Integer.parseInt(examenId));
+        Integer i = 0;
+        this.respuestasSeleccionadas = new String[respuestas.size()];
+        for (Integer idRespuesta: respuestas) {
+            this.respuestasSeleccionadas[i] = String.valueOf(idRespuesta);
+            i++;
+        }
+        return "/pregunta/rendirexamen";
     }
 }

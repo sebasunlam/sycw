@@ -1,6 +1,8 @@
 package ar.edu.unlam.diit.scaw.daos;
 
+import ar.edu.unlam.diit.scaw.entities.Examen;
 import ar.edu.unlam.diit.scaw.entities.Materia;
+import ar.edu.unlam.diit.scaw.entities.Usuario;
 
 import java.util.List;
 
@@ -43,4 +45,23 @@ public interface MateriasDao {
      * @return materias devueltas
      */
     List<Materia> getAll();
+
+    /**
+     * Verifica que si el alumno ya esta inscripto a la materia
+     * @param materiaId
+     * @param alumnoId
+     * @return
+     */
+    boolean estaInscripto(Integer materiaId, Integer alumnoId);
+
+    /**
+     * guarda el id de materia y alumno en la table intermedia
+     * @param materiaId
+     * @param alumnoId
+     */
+    void inscribirAlumno(Integer materiaId, Integer alumnoId);
+
+    List<Materia> getMAteriasAlumno(Integer id);
+
+    void desinscribirAlumno(Integer materiaId, Integer alumnoId);
 }

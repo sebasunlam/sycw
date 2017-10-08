@@ -26,24 +26,27 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <!-- Collect the nav links, forms, and other content for toggling -->
-
-
                 <ul class="nav navbar-nav">
                     <c:if test="#{userData != null and userData.hasRole('Administrador')}">
                         <li><h:outputLink value="../usuario/index.xhtml">Usuarios</h:outputLink></li>
                     </c:if>
-                    <c:if test="#{userData != null and userData.hasRole('Docente')}">
-                    <li><h:outputLink value="../materia/index.xhtml">Materias</h:outputLink></li>
+                    <c:if test="#{userData != null and (userData.hasRole('Docente') or userData.hasRole('Alumno') or userData.hasRole('Administrador'))}">
+                        <li><h:outputLink value="../materia/index.xhtml">Materias</h:outputLink></li>
                     </c:if>
-                    <li><h:outputLink value="../examen/index.xhtml">Examenes</h:outputLink></li>
+                    <c:if test="#{userData != null and userData.hasRole('Docente')}">
+                        <li><h:outputLink value="../examen/index.xhtml">Examenes</h:outputLink></li>
+                    </c:if>
+                    <c:if test="#{userData != null and userData.hasRole('Alumno')}">
+                        <li><h:outputLink value="../examen/lista.xhtml">Examenes</h:outputLink></li>
+                    </c:if>
                 </ul>
 
                 <c:if test="#{userData != null}">
                     <h:form>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><h:commandLink action="#{usuarioController.logout}"
-                                               value="Cerrar Sesion"></h:commandLink></li>
+                            <li><h:commandLink action="#{usuarioController.logout}" value="Cerrar Sesion"/></li>
                         </ul>
+
                     </h:form>
                 </c:if>
             </div><!-- /.navbar-collapse -->

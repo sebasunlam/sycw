@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "usuario",eager = true)
@@ -22,7 +23,7 @@ public class Usuario implements Serializable {
 	private EstadoUsuario estado;
 //	@ManagedProperty(value = "#{roles}")
 	private List<Role> roles;
-	private List<Materia> materias;
+	private List<Materia> materias = new ArrayList<>();
 	private List<String> selectedRoles;
 
 	public Usuario() {
@@ -99,6 +100,7 @@ public class Usuario implements Serializable {
 	public void setRepetirPassword(String repetirPassword) {
 		this.repetirPassword = repetirPassword;
 	}
+
 	public Boolean hasRole(String descripcion){
 
 		Boolean contains = false;
@@ -113,7 +115,6 @@ public class Usuario implements Serializable {
 	public List<Materia> getMaterias() {
 		return materias;
 	}
-
 
 	public void setMaterias(List<Materia> materias) {
 		this.materias = materias;

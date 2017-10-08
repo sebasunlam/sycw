@@ -22,7 +22,9 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>Listado de Materias</h1>
-                <h:button styleClass="btn btn-primary right" outcome="nuevamateria.xhtml" value="Nueva Materia" />
+                <c:if test="#{userData != null and userData.hasRole('Administrador') }">
+                    <h:button styleClass="btn btn-primary right" outcome="nuevamateria.xhtml" value="Nueva Materia"/>
+                </c:if>
             </div>
         </div>
         <div class="row">
@@ -41,20 +43,42 @@
                         <f:facet name="header">Docente</f:facet>
                         #{materia.docenteTitular.nombre} #{materia.docenteTitular.apellido}
                     </h:column>
-                    <h:column>
-                        <h:form>
-                            <h:commandButton value="Editar" action="#{materiaController.editView(materia.id)}" styleClass="btn btn-info">
-                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
-                            </h:commandButton>
-                        </h:form>
-                    </h:column>
-                    <h:column>
-                        <h:form>
-                            <h:commandButton value="Borrar" action="#{materiaController.delete(materia.id)}" styleClass="btn btn-danger">
-                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
-                            </h:commandButton>
-                        </h:form>
-                    </h:column>
+                    <c:if test="#{userData != null and userData.hasRole('Administrador') }">
+                        <h:column>
+                            <h:form>
+                                <h:commandButton value="Editar" action="#{materiaController.editView(materia.id)}"
+                                                 styleClass="btn btn-info">
+                                    <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:column>
+                        <h:column>
+                            <h:form>
+                                <h:commandButton value="Borrar" action="#{materiaController.delete(materia.id)}"
+                                                 styleClass="btn btn-danger">
+                                    <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:column>
+                    </c:if>
+                    <c:if test="#{userData != null and userData.hasRole('Alumno') }">
+                        <h:column>
+                            <h:form>
+                                <h:commandButton value="Inscribir"
+                                                 action="#{materiaController.inscribirMateria(materia.id)}"
+                                                 rendered="#{not materiaController.cursaMateria(materia.id)}"
+                                                 styleClass="btn btn-info">
+                                    <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                                </h:commandButton>
+                                <h:commandButton value="Desinscribir"
+                                                 action="#{materiaController.desinscribirMateria(materia.id)}"
+                                                 rendered="#{materiaController.cursaMateria(materia.id)}"
+                                                 styleClass="btn btn-danger">
+                                    <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:column>
+                    </c:if>
                 </h:dataTable>
             </div>
         </div>

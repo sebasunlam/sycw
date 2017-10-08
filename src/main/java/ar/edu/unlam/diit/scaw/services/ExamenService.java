@@ -11,4 +11,6 @@ public interface ExamenService {
     void save(Examen examen);
     void update(Examen examen);
     void delete(int examenId);
+
+    List<Examen> getAptoParaRendir(Integer alumnoId);
 }

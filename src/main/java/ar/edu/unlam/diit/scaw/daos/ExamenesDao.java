@@ -32,4 +32,6 @@ public interface ExamenesDao {
     Examen get(int examenId);
 
     List<Examen> getAll();
+
+    List<Examen> getAptoParaRendir(Integer alumnoId);
 }

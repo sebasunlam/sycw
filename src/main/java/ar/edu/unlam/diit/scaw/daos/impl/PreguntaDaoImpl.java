@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -154,6 +155,57 @@ public class PreguntaDaoImpl implements PreguntaDao {
         }
 
         return list;
+    }
+
+    @Override
+    public void setRespuestasAlumno(Integer alumnoId, String[] respuestasId) {
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+            for (String respuestaid:respuestasId) {
+                PreparedStatement stmtDelete = conn.prepareStatement("DELETE FROM RESPUESTAALUMNO WHERE IDALUMNO=? AND IDRESPUESTA =?");
+                stmtDelete.setInt(1, alumnoId);
+                stmtDelete.setInt(2, Integer.parseInt(respuestaid));
+                stmtDelete.executeUpdate();
+
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO RESPUESTAALUMNO (IDALUMNO,IDRESPUESTA) VALUES (?,?)");
+                stmt.setInt(1, alumnoId);
+                stmt.setInt(2, Integer.parseInt(respuestaid));
+                stmt.executeUpdate();
+            }
+
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Integer> getRespuestasAlumnos(Integer alumnoId, Integer examenId) {
+        List<Integer> respuestas = new ArrayList<>();
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT IDRESPUESTA FROM RESPUESTAALUMNO AS ra" +
+                    " JOIN RESPUESTAs AS r ON ra.IDRESPUESTA = r.ID" +
+                    " JOIN PREGUNTAS AS p ON r.IDPREGUNTA = p.ID" +
+                    " WHERE ra.IDALUMNO = ? AND p.IDEXAMEN = ?");
+            stmt.setInt(1, alumnoId);
+            stmt.setInt(2, examenId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                respuestas.add(rs.getInt("IDRESPUESTA"));
+            }
+
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return respuestas;
     }
 
     private void mapRespuestas(Pregunta pregunta) throws SQLException {

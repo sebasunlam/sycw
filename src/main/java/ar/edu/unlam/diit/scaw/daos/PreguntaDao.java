@@ -14,4 +14,8 @@ public interface PreguntaDao {
     Pregunta get(int preguntaId);
 
     List<Pregunta> getAll(int idExamen);
+
+    void setRespuestasAlumno(Integer alumnoId, String[] respuestasId);
+
+    List<Integer> getRespuestasAlumnos(Integer alumnoId, Integer examenId);
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Title</title>
+    <ui:insert name="header">
+        <ui:include src="../templates/header.xhtml"/>
+    </ui:insert>
+</h:head>
+<h:body>
+    <ui:insert name="navbar">
+        <ui:include src="../templates/navbar.xhtml" />
+    </ui:insert>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Listado de Examenes habilitados para rendir</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h:outputText value="No hay materias disponibles para rendir" rendered="#{empty examenController.getAptoParaRendir()}" />
+                <h:dataTable value="#{examenController.getAptoParaRendir()}" var="examen" rendered="#{not empty examenController.getAptoParaRendir()}"
+                             styleClass="table table-striped">
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                        #{examen.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Materia</f:facet>
+                        #{examen.materia.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Estado</f:facet>
+                        #{examen.estado.descripcion}
+                    </h:column>
+                    <h:column>
+                        <h:form>
+                            <h:commandButton value="Rendir" action="#{preguntaController.rendirExamen(examen.id)}" styleClass="btn btn-info"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
+    </div>
+    <ui:insert name="scripts">
+        <ui:include src="/templates/scripts.xhtml"/>
+    </ui:insert>
+    <script src="../js/bootstrap-.js" type="text/javascript"></script>
+</h:body>
+</html>
