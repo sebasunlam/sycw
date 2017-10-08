@@ -40,28 +40,62 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Estado</f:facet>
-                    #{usuario.estado.descripcion}
+                    <h:outputFormat rendered="#{usuarioController.mostrar(usuario.estadoId,1)}">
+                        <div class="alert alert-info">
+                            <strong>
+                                #{usuario.estado.descripcion}
+                            </strong>
+                        </div>
+                    </h:outputFormat>
+                    <h:outputFormat rendered="#{usuarioController.mostrar(usuario.estadoId,2)}">
+
+
+                        <div class="alert alert-success">
+                            <strong>
+                                #{usuario.estado.descripcion}
+                            </strong>
+                        </div>
+                    </h:outputFormat>
+                    <h:outputFormat rendered="#{usuarioController.mostrar(usuario.estadoId,3)}">
+
+
+                        <div class="alert alert-warning">
+                            <strong>
+                                #{usuario.estado.descripcion}
+                            </strong>
+                        </div>
+                    </h:outputFormat>
+                    <h:outputFormat rendered="#{usuarioController.mostrar(usuario.estadoId,4)}">
+                        <div class="alert alert-danger">
+                            <strong>
+                                #{usuario.estado.descripcion}
+                            </strong>
+                        </div>
+                    </h:outputFormat>
                 </h:column>
                 <h:column>
                     <h:form>
-
-                        <c:if test="#{usuario.estadoId != 2}">
-                            <h:commandButton value="Aprobar" action="#{usuarioController.aprobarUsuario(usuario.id)}"
-                                             styleClass="btn btn-success">
-                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
-                            </h:commandButton>
-                        </c:if>
+                        <h:commandButton value="Aprobar" action="#{usuarioController.aprobarUsuario(usuario.id)}"
+                                         rendered="#{usuarioController.mostrar(usuario.estadoId,1) or usuarioController.mostrar(usuario.estadoId,3)}"
+                                         styleClass="btn btn-success">
+                            <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                        </h:commandButton>
+                        <h:commandButton value="Recuperar" action="#{usuarioController.aprobarUsuario(usuario.id)}"
+                                         rendered="#{usuarioController.mostrar(usuario.estadoId,4)}"
+                                         styleClass="btn btn-success">
+                            <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                        </h:commandButton>
                     </h:form>
                 </h:column>
                 <h:column>
                     <h:form>
-                        <c:if test="#{usuario.estadoId != 3}">
-                            <h:commandButton value="Rechazar"
-                                             action="#{usuarioController.rechazarUsuario(usuario.id)}"
-                                             styleClass="btn btn-warning">
-                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
-                            </h:commandButton>
-                        </c:if>
+                        <h:commandButton value="Rechazar"
+                                         action="#{usuarioController.rechazarUsuario(usuario.id)}"
+                                         rendered="#{usuarioController.mostrar(usuario.estadoId,1)}"
+                                         styleClass="btn btn-warning">
+                            <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                        </h:commandButton>
+
                     </h:form>
                 </h:column>
                 <h:column>
@@ -70,14 +104,13 @@
                                          styleClass="btn btn-info">
                             <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
                         </h:commandButton>
-
-
                     </h:form>
                 </h:column>
                 <h:column>
                     <h:form>
 
                         <h:commandButton value="Borrar" action="#{usuarioController.delete(usuario.id)}"
+                                         rendered="#{usuarioController.mostrar(usuario.estadoId,1) or usuarioController.mostrar(usuario.estadoId,2)}"
                                          styleClass="btn btn-danger">
                             <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
                         </h:commandButton>

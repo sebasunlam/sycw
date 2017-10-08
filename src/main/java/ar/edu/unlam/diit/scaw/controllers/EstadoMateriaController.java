@@ -6,6 +6,7 @@ import ar.edu.unlam.diit.scaw.services.EstadoMateriaService;
 import ar.edu.unlam.diit.scaw.services.RoleService;
 import ar.edu.unlam.diit.scaw.services.impl.EstadoMateriaServiceImpl;
 import ar.edu.unlam.diit.scaw.services.impl.RoleServiceImpl;
+import ar.edu.unlam.diit.scaw.utls.Authorize;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
@@ -26,6 +27,7 @@ public class EstadoMateriaController {
         estadoMateriaService = new EstadoMateriaServiceImpl();
     }
 
+    @Authorize(roles = "Docente,Alumno")
     public List<EstadoMateria> getAll() {
         List<EstadoMateria> list = estadoMateriaService.getAll();
         return list;

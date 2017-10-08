@@ -42,7 +42,9 @@
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandButton value="Rendir" action="#{preguntaController.rendirExamen(examen.id)}" styleClass="btn btn-info"/>
+                            <h:commandButton value="Rendir" action="#{preguntaController.rendirExamen(examen.id)}" styleClass="btn btn-info">
+                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                            </h:commandButton>
                         </h:form>
                     </h:column>
                 </h:dataTable>

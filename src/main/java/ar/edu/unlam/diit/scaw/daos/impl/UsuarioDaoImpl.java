@@ -264,7 +264,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                if (rs.getInt(1) > 0) {
+                if (rs.getInt(1) != 0) {
                     exist = true;
                 }
             }

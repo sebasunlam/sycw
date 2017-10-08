@@ -1,20 +1,18 @@
 package ar.edu.unlam.diit.scaw.controllers;
 
-import ar.edu.unlam.diit.scaw.entities.Materia;
 import ar.edu.unlam.diit.scaw.entities.Pregunta;
 import ar.edu.unlam.diit.scaw.entities.Respuesta;
-import ar.edu.unlam.diit.scaw.entities.TipoRespuesta;
 import ar.edu.unlam.diit.scaw.services.PreguntaService;
 import ar.edu.unlam.diit.scaw.services.impl.PreguntaServiceImpl;
-import ar.edu.unlam.diit.scaw.utls.SessionUtils;
 import ar.edu.unlam.diit.scaw.utls.Authorize;
+import ar.edu.unlam.diit.scaw.utls.SessionUtils;
 
-import javax.faces.bean.*;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @ManagedBean(name = "preguntaController", eager = true)
 @SessionScoped
@@ -48,7 +46,7 @@ public class PreguntaController {
         this.pregunta = pregunta;
     }
 
-    @Authorize(roles = "Administrador,Docente")
+    @Authorize(roles = "Docente")
     public String getAll(int materiaId) {
         preguntas = preguntaService.getAll(materiaId);
         return "/pregunta/index";
@@ -71,6 +69,7 @@ public class PreguntaController {
     }
 
 
+    @Authorize(roles = "Alumno")
     public String addRespuesta(String path) {
 
         if (respuestas == null) {
@@ -90,6 +89,7 @@ public class PreguntaController {
         return path;
     }
 
+    @Authorize(roles = "Alumno")
     public String save() {
 
         this.pregunta.setRespuestas(respuestas);
@@ -98,6 +98,7 @@ public class PreguntaController {
         return "/pregunta/index";
     }
 
+    @Authorize(roles = "Alumno")
     public String update() {
 
         this.pregunta.setRespuestas(respuestas);
@@ -106,12 +107,14 @@ public class PreguntaController {
         return "/pregunta/index";
     }
 
+    @Authorize(roles = "Alumno")
     public String navigateSave() {
         this.pregunta = new Pregunta();
         this.respuestas = new LinkedList<>();
         return "/pregunta/save";
     }
 
+    @Authorize(roles = "Alumno")
     public String navigateEdita(int preguntaId) {
         this.pregunta = preguntaService.get(preguntaId);
         this.respuestas = this.pregunta.getRespuestas();

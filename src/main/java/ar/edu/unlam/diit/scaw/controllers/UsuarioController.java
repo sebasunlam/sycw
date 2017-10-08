@@ -104,6 +104,7 @@ public class UsuarioController implements Serializable {
         return "/usuario/index.xhtml";
     }
 
+    @Authorize(roles = "Administrador,Docente,Alumno")
     public String update(String path) {
 
         usuarioService.update(this.usuario);
@@ -142,6 +143,12 @@ public class UsuarioController implements Serializable {
         return "/usuario/index";
     }
 
+    @Authorize(roles = "Administrador")
+    public Boolean mostrar(Integer id,Integer toCompare) {
+        return id.equals(toCompare);
+    }
+
+    @Authorize(roles = "Administrador,Docente,Alumno")
     public String get(Integer usuarioId, String path) {
         this.usuario = usuarioService.get(usuarioId);
 
@@ -192,6 +199,7 @@ public class UsuarioController implements Serializable {
         this.role = role;
     }
 
+    @Authorize(roles = "Administrador,Docente,Alumno")
     public String editView(Integer id) {
         usuario = usuarioService.get(id);
         return "/usuario/update";

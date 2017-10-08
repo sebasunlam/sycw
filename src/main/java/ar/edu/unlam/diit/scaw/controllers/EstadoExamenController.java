@@ -6,6 +6,7 @@ import ar.edu.unlam.diit.scaw.services.EstadoExamenService;
 import ar.edu.unlam.diit.scaw.services.EstadoMateriaService;
 import ar.edu.unlam.diit.scaw.services.impl.EstadoExamenServiceImpl;
 import ar.edu.unlam.diit.scaw.services.impl.EstadoMateriaServiceImpl;
+import ar.edu.unlam.diit.scaw.utls.Authorize;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
@@ -26,6 +27,7 @@ public class EstadoExamenController {
         estadoExamenService = new EstadoExamenServiceImpl();
     }
 
+    @Authorize(roles = "Docente,Alumno")
     public List<EstadoExamen> getAll() {
         List<EstadoExamen> list = estadoExamenService.getAll();
         return list;
