@@ -8,6 +8,7 @@
 	<name>ar.edu.unlam.diit.scaw Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<dbcp.version>2.1</dbcp.version>
@@ -34,8 +35,11 @@
 		<dependency>
 			<groupId>org.owasp.esapi</groupId>
 			<artifactId>esapi</artifactId>
-			<version>2.0.1</version>
+			<version>2.1.0.1</version>
+
 		</dependency>
+
+
 
 		<!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->
 		<dependency>
@@ -60,6 +64,7 @@
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-impl</artifactId>
 			<version>2.2.6</version>
+
 		</dependency>
 
 		<dependency>
@@ -79,7 +84,10 @@
 		</dependency>
 
 
+
 	</dependencies>
+
+
 
 	<build>
 		<finalName>scaw</finalName>
@@ -95,5 +103,8 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!--Agrego ESAPI para la sanitización -->
+
 
 </project>

@@ -7,6 +7,8 @@ import ar.edu.unlam.diit.scaw.daos.impl.EstadoUsuarioDaoImpl;
 import ar.edu.unlam.diit.scaw.daos.impl.UsuarioDaoImpl;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.ValidationException;
 
 public class UsuarioServiceImpl implements UsuarioService {
 
@@ -21,6 +23,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario login(Usuario usuario) {
         //por ejemplo modificar algo del usuario, el nombre en mayuscula
+        try {
+            String password = ESAPI.validator().getValidInput("LoginPageLogin_passwordField", usuario.getContraseña(), "SafeString", 255, true );
+            String email = ESAPI.validator().getValidInput("LoginPageLogin_emailField", usuario.getEmail(), "SafeString", 255, true );
+
+            usuario.setEmail(email);
+            usuario.setContraseña(password);
+
+
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+
         return usuarioHsql.login(usuario);
     }
 
@@ -44,8 +58,24 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void save(Usuario usuario) {
-        usuarioHsql.save(usuario);
+    public void save(Usuario usuario)  {
+        try {
+            String contraseña = ESAPI.validator().getValidInput("LoginPage_passwordFild", (usuario.getContraseña()), "SafeString", 255, false);
+            String nombre = ESAPI.validator().getValidInput("LoginPage_nombreFild", usuario.getNombre(), "SafeString", 255, true);
+            String apellido = ESAPI.validator().getValidInput("LoginPage_apellidoFild", usuario.getApellido(), "SafeString", 255, true);
+            String email = ESAPI.validator().getValidInput("LoginPage_emailFild", usuario.getEmail(), "Email", 255, false);
+
+            usuario.setContraseña(contraseña);
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setEmail(email);
+
+
+            usuarioHsql.save(usuario);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

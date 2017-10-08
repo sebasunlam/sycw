@@ -6,6 +6,8 @@ import ar.edu.unlam.diit.scaw.entities.Materia;
 import ar.edu.unlam.diit.scaw.services.EstadoMateriaService;
 import ar.edu.unlam.diit.scaw.services.MateriaService;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.ValidationException;
 
 import java.util.List;
 
@@ -22,7 +24,16 @@ public class MateriaServiceImpl implements MateriaService {
 
     @Override
     public void save(Materia materia) {
-        materiasDao.save(materia);
+        try {
+            String nombre = ESAPI.validator().getValidInput("NuevaMateriaPage_nombreField", materia.getNombre(), "SafeString", 255, false);
+
+            materia.setNombre(nombre);
+
+            materiasDao.save(materia);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

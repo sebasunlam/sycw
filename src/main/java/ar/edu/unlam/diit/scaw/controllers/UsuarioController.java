@@ -37,12 +37,12 @@ public class UsuarioController implements Serializable {
         usuarioService = new UsuarioServiceImpl();
     }
 
-    public String save() {
+    public String save()  {
 
         return saveUser("usuario/index","usuario/save");
     }
 
-    private String saveUser(String returnPath,String returnError){
+    private String saveUser(String returnPath,String returnError) {
         if (usuarioService.userExist(this.usuario.getEmail())) {
             errors.add("El usuario ya existe");
         }
@@ -52,14 +52,18 @@ public class UsuarioController implements Serializable {
         }
 
         if(errors.size() == 0){
-            usuarioService.save(this.usuario);
+            try {
+                usuarioService.save(this.usuario);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return returnPath;
         }
 
         return returnError;
     }
 
-    public String save(String path) {
+    public String save(String path) throws Exception {
         return saveUser(path,"login");
     }
 
