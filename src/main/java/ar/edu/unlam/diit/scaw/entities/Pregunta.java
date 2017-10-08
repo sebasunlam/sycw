@@ -14,8 +14,6 @@ public class Pregunta implements Serializable {
     private Integer idExamen;
     private Examen examen;
 
-
-
     public Pregunta() {
 
     }

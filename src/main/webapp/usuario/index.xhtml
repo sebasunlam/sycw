@@ -25,6 +25,7 @@
             <h:button styleClass="btn btn-primary right" outcome="save.xhtml" value="Nuevo Usuario"/>
         </div>
     </div>
+    selected role: ${usuario.selectedRoles}
     <div class="row">
         <div class="col-sm-12">
             <h:dataTable value="#{usuarioController.findAll}" var="usuario"

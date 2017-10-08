@@ -61,6 +61,17 @@ public class ExamenServiceImpl implements ExamenService {
         examenHsql.delete(examenId);
     }
 
+    @Override
+    public List<Examen> getAptoParaRendir(Integer alumnoId) {
+        List<Examen> examenes = examenHsql.getAptoParaRendir(alumnoId);
+
+        for (Examen examen : examenes) {
+            examen.setEstado(estadoExamenDao.get(examen.getIdEstadoExamen()));
+            examen.setMateria(materiasDao.get(examen.getIdMateria()));
+        }
+        return examenes;
+    }
+
     public ExamenDaoImpl getExamenHsql() {
         return examenHsql;
     }

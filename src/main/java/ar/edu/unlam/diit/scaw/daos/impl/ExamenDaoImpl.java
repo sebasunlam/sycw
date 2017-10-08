@@ -6,6 +6,7 @@ import ar.edu.unlam.diit.scaw.entities.EstadoMateria;
 import ar.edu.unlam.diit.scaw.entities.Examen;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -117,5 +118,36 @@ public class ExamenDaoImpl implements ExamenesDao {
         }
 
         return list;
+    }
+
+    @Override
+    public List<Examen> getAptoParaRendir(Integer alumnoId) {
+        List<Examen> examenes = new ArrayList<>();
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM EXAMENES AS e " +
+                    " JOIN MATERIAS AS m ON E.IDMATERIA = M.ID" +
+                    " JOIN MATERIAALUMNO AS ma ON m.ID = ma.IDMATERIA" +
+                    " WHERE ma.IDALUMNO = ? AND e.IDESTADOEXAMEN = 2");
+
+            stmt.setInt(1,alumnoId);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Examen examen = new Examen();
+                examen.setId(rs.getInt("id"));
+                examen.setNombre(rs.getString("nombre"));
+                examen.setIdMateria(rs.getInt("idmateria"));
+                examen.setIdEstadoExamen(rs.getInt("idestadoexamen"));
+                examenes.add(examen);
+            }
+
+            conn.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return examenes;
     }
 }

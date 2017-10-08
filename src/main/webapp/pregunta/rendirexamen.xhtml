@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
+<h:head>
+    <title>UNLAM - Materias</title>
+    <ui:insert name="header">
+        <ui:include src="../templates/header.xhtml"/>
+    </ui:insert>
+    <style type="text/css">
+        .cb table {
+            width: 100%;
+        }
+
+        .cb tr {
+            display: inline;
+        }
+
+        .cb td {
+            display: inline-block;
+            width: 24%;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <ui:insert name="header">
+        <ui:include src="/templates/navbar.xhtml"/>
+    </ui:insert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Rendir Examen</h1>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-12">
+                <c:forEach var="pregunta" items="#{preguntaController.preguntas}">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" href="#collapse1">#{pregunta.pregunta}"</a>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse in">
+                                <div class="panel-footer">
+                                    <h:form>
+                                        <input type="hidden" name="preguntaId" value="#{pregunta.id}" />
+                                        <h:selectManyCheckbox id="grid" value="#{preguntaController.preguntas}" layout="grid" columns="3">
+                                            <f:selectItems value="#{pregunta.respuestas}" var="respuesta" itemValue = "#{respuesta.id}" itemLabel = "#{respuesta.respuesta}" />
+                                        </h:selectManyCheckbox>
+                                        <h:commandButton action='#{preguntaController.saveRespuestasAlumno()}' value="Guardar Respuestas" styleClass="btn btn-primary" />
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+    <ui:insert name="scripts">
+        <ui:include src="/templates/scripts.xhtml"/>
+    </ui:insert>
+</h:body>
+</html>

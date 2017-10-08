@@ -37,6 +37,7 @@ public interface MateriaService {
      * @return la lista de materias para el docente especificado
      */
     List<Materia> getMateriasDocente(Integer docenteId);
+
     /**
      * Asigna las materias a los docentes
      * @param docenteId Id del docente a asignar la materia
@@ -45,9 +46,30 @@ public interface MateriaService {
     void asignarDocenteMateria(Integer docenteId,Integer materiaId);
 
     /**
+     * Inscribe un alumno a la materia
+     * @param alumnoId Id del docente a asignar la materia
+     * @param materiaId Id de la materia para asignarle al docente
+     */
+    void asignarAlumnoMateria(Integer alumnoId,Integer materiaId);
+
+    /**
      * Trae todas las materias
      * @return materias devueltas
      */
     List<Materia> getAll();
 
+    /**
+     * Elimna a un elumno de una materia
+     * @param alumnoId
+     * @param materiaId
+     */
+    void desasignarAlumnoMateria(Integer alumnoId, Integer materiaId);
+
+    /**
+     *  Devuelve true si esta inscripto
+     * @param alumnoId
+     * @param materiaId
+     * @return
+     */
+    Boolean cursaMateria(Integer alumnoId, Integer materiaId);
 }

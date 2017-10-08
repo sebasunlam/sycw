@@ -193,7 +193,6 @@ public class UsuarioDaoImpl implements UsuarioDao {
         }
     }
 
-
     @Override
     public void update(Usuario usuario) {
 
@@ -218,7 +217,6 @@ public class UsuarioDaoImpl implements UsuarioDao {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void cambiarEstado(Integer usuarioId,Integer estadoId) {

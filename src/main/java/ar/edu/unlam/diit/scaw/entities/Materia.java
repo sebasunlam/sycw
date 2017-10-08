@@ -3,6 +3,7 @@ package ar.edu.unlam.diit.scaw.entities;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "materia",eager = true)
@@ -23,6 +24,7 @@ public class Materia implements Serializable {
     public Materia(){
 
     }
+
     public Integer getId() {
         return id;
     }
@@ -53,6 +55,12 @@ public class Materia implements Serializable {
 
     public void setAlumnos(List<Usuario> alumnos) {
         this.alumnos = alumnos;
+    }
+
+    public void setAlumno(Usuario alumno) {
+        if(this.alumnos == null)
+            this.alumnos = new ArrayList<Usuario>();
+        this.alumnos.add(alumno);
     }
 
     public List<Examen> getExamenes() {

@@ -2,11 +2,15 @@ package ar.edu.unlam.diit.scaw.daos.impl;
 
 import ar.edu.unlam.diit.scaw.configs.HsqlDataSource;
 import ar.edu.unlam.diit.scaw.daos.MateriasDao;
+import ar.edu.unlam.diit.scaw.entities.Examen;
 import ar.edu.unlam.diit.scaw.entities.Materia;
+import ar.edu.unlam.diit.scaw.entities.Usuario;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,6 +51,10 @@ public class MateriasDaoImpl implements MateriasDao{
             stmt.setInt(2, materia.getEstadoId());
             stmt.setInt(3, materia.getDocenteId());
             stmt.setInt(4, materia.getId());
+
+            if (!materia.getAlumnos().isEmpty()) {
+
+            }
 
             stmt.executeUpdate();
             conn.close();
@@ -141,6 +149,86 @@ public class MateriasDaoImpl implements MateriasDao{
         }
 
         return materias;
+    }
+
+    @Override
+    public boolean estaInscripto(Integer materiaId, Integer alumnoId) {
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT IDMATERIA, IDALUMNO FROM MATERIAALUMNO WHERE IDALUMNO = ? AND IDMATERIA = ?");
+            stmt.setInt(1,alumnoId);
+            stmt.setInt(2,materiaId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            Boolean result = false;
+            if (rs.next()) {
+               result = true;
+            }
+            conn.close();
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public void inscribirAlumno(Integer materiaId, Integer alumnoId) {
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO MATERIAALUMNO(IDALUMNO, IDMATERIA) VALUES (?,?)");
+            stmt.setInt(1,alumnoId);
+            stmt.setInt(2,materiaId);
+
+            stmt.executeUpdate();
+            conn.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Materia> getMAteriasAlumno(Integer alumnoId) {
+        List<Materia> materias = new LinkedList<>();
+
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT id,nombre,idestadomateria,iddocentetitular " +
+                    "FROM MATERIAS AS m JOIN MATERIAALUMNO AS ma ON m.ID = ma.IDMATERIA" +
+                    " WHERE ma.IDALUMNO=?");
+            stmt.setInt(1,alumnoId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                materias.add(mapMateria(rs));
+            }
+
+            conn.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return materias;
+    }
+
+    @Override
+    public void desinscribirAlumno(Integer materiaId, Integer alumnoId) {
+        try {
+            conn = (dataSource.dataSource()).getConnection();
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM MATERIAALUMNO WHERE IDALUMNO = ? AND IDMATERIA = ?");
+            stmt.setInt(1,alumnoId);
+            stmt.setInt(2,materiaId);
+
+            stmt.executeUpdate();
+            conn.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private Materia mapMateria(ResultSet rs) throws SQLException {

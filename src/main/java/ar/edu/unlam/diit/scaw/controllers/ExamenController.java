@@ -5,6 +5,7 @@ import ar.edu.unlam.diit.scaw.entities.Pregunta;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.ExamenService;
 import ar.edu.unlam.diit.scaw.services.impl.ExamenServiceImpl;
+import ar.edu.unlam.diit.scaw.utls.SessionUtils;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
@@ -80,5 +81,11 @@ public class ExamenController implements Serializable {
     public String editView(Integer id) {
         examen = examenService.get(id);
         return "/examen/update";
+    }
+
+
+    public List<Examen> getAptoParaRendir(){
+        Integer alumnoId = SessionUtils.getUser().getId();
+        return examenService.getAptoParaRendir(alumnoId);
     }
 }

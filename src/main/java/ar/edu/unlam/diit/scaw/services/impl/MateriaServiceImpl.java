@@ -1,8 +1,11 @@
 package ar.edu.unlam.diit.scaw.services.impl;
 
 import ar.edu.unlam.diit.scaw.daos.MateriasDao;
+import ar.edu.unlam.diit.scaw.daos.UsuarioDao;
 import ar.edu.unlam.diit.scaw.daos.impl.MateriasDaoImpl;
+import ar.edu.unlam.diit.scaw.daos.impl.UsuarioDaoImpl;
 import ar.edu.unlam.diit.scaw.entities.Materia;
+import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.EstadoMateriaService;
 import ar.edu.unlam.diit.scaw.services.MateriaService;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
@@ -11,11 +14,13 @@ import java.util.List;
 
 public class MateriaServiceImpl implements MateriaService {
     MateriasDao materiasDao;
+    UsuarioDao usuarioDao;
     UsuarioService usuarioService;
     EstadoMateriaService estadoMateriaService;
 
     public MateriaServiceImpl() {
         materiasDao = new MateriasDaoImpl();
+        usuarioDao = new UsuarioDaoImpl();
         usuarioService = new UsuarioServiceImpl();
         estadoMateriaService = new EstadoMateriaServiceImpl();
     }
@@ -61,6 +66,12 @@ public class MateriaServiceImpl implements MateriaService {
     }
 
     @Override
+    public void asignarAlumnoMateria( Integer alumnoId, Integer materiaId) {
+        if (!materiasDao.estaInscripto(materiaId, alumnoId))
+            materiasDao.inscribirAlumno(materiaId, alumnoId);
+    }
+
+    @Override
     public List<Materia> getAll() {
         List<Materia> materias = materiasDao.getAll();
         for (Materia materia: materias) {
@@ -68,5 +79,16 @@ public class MateriaServiceImpl implements MateriaService {
             materia.setDocenteTitular(usuarioService.get(materia.getDocenteId()));
         }
         return materias;
+    }
+
+    @Override
+    public void desasignarAlumnoMateria(Integer alumnoId, Integer materiaId) {
+        if (materiasDao.estaInscripto(materiaId, alumnoId))
+            materiasDao.desinscribirAlumno(materiaId, alumnoId);
+    }
+
+    @Override
+    public Boolean cursaMateria(Integer alumnoId, Integer materiaId) {
+        return materiasDao.estaInscripto(materiaId, alumnoId);
     }
 }
