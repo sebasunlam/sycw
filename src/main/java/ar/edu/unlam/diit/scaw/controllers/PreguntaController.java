@@ -6,6 +6,7 @@ import ar.edu.unlam.diit.scaw.entities.Respuesta;
 import ar.edu.unlam.diit.scaw.entities.TipoRespuesta;
 import ar.edu.unlam.diit.scaw.services.PreguntaService;
 import ar.edu.unlam.diit.scaw.services.impl.PreguntaServiceImpl;
+import ar.edu.unlam.diit.scaw.utls.SessionUtils;
 
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -51,8 +52,18 @@ public class PreguntaController {
         return "/pregunta/index";
     }
 
-    public String rendirExamen(int materiaId) {
-        preguntas = preguntaService.getAll(materiaId);
+    public String rendirExamen(int examenId) {
+        Integer alumnoId = SessionUtils.getUser().getId();
+
+        preguntas = preguntaService.getAll(examenId);
+
+        List<Integer> respuestas = preguntaService.getRespuestasAlumnos(alumnoId, examenId);
+        Integer i = 0;
+        this.respuestasSeleccionadas = new String[respuestas.size()];
+        for (Integer idRespuesta: respuestas) {
+            this.respuestasSeleccionadas[i] = String.valueOf(idRespuesta);
+            i++;
+        }
         return "/pregunta/rendirexamen";
     }
 
@@ -144,11 +155,20 @@ public class PreguntaController {
     }
 
     public String saveRespuestasAlumno() {
+        Integer alumnoId = SessionUtils.getUser().getId();
+
         Map<String,String> requestParams = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String preguntaId = requestParams.get("preguntaId");
-        String[] preguntas = this.respuestasSeleccionadas;
+        String examenId = requestParams.get("examenId");
 
+        preguntaService.setRespuestasAlumno(alumnoId, this.respuestasSeleccionadas);
 
+        List<Integer> respuestas = preguntaService.getRespuestasAlumnos(alumnoId, Integer.parseInt(examenId));
+        Integer i = 0;
+        this.respuestasSeleccionadas = new String[respuestas.size()];
+        for (Integer idRespuesta: respuestas) {
+            this.respuestasSeleccionadas[i] = String.valueOf(idRespuesta);
+            i++;
+        }
         return "/pregunta/rendirexamen";
     }
 }

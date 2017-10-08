@@ -24,7 +24,6 @@ public class PreguntaServiceImpl implements PreguntaService {
         examenService = new ExamenServiceImpl();
     }
 
-
     @Override
     public void save(Pregunta pregunta) {
         preguntaDao.save(pregunta);
@@ -32,7 +31,7 @@ public class PreguntaServiceImpl implements PreguntaService {
 
     @Override
     public void update(Pregunta pregunta) {
-preguntaDao.update(pregunta);
+        preguntaDao.update(pregunta);
     }
 
     @Override
@@ -58,5 +57,15 @@ preguntaDao.delete(preguntaId);
         }
 
         return preguntas;
+    }
+
+    @Override
+    public void setRespuestasAlumno(Integer alumnoId, String[] respuestasId) {
+        preguntaDao.setRespuestasAlumno(alumnoId,respuestasId);
+    }
+
+    @Override
+    public List<Integer> getRespuestasAlumnos(Integer alumnoId, Integer examenId) {
+        return  preguntaDao.getRespuestasAlumnos(alumnoId, examenId);
     }
 }

@@ -25,7 +25,6 @@ public class ExamenServiceImpl implements ExamenService {
 
     }
 
-
     @Override
     public List<Examen> findAll() {
 
