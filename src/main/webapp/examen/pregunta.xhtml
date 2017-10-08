@@ -2,7 +2,7 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -44,7 +44,9 @@
                     <h:outputLabel >Ingrese la quinta pregunta:</h:outputLabel>
                     <h:inputText value="preguntaController.pregunta5" styleClass="form-control"/>
                 </div>
-                <h:commandButton styleClass="btn btn-success" action="#{preguntaController.save()}"/>
+                <h:commandButton styleClass="btn btn-success" action="#{preguntaController.save()}">
+                    <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                </h:commandButton>
             </h:form>
         </div>
     </div>

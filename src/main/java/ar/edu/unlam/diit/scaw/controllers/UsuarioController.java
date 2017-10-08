@@ -14,6 +14,7 @@ import ar.edu.unlam.diit.scaw.entities.Role;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
 import ar.edu.unlam.diit.scaw.services.impl.UsuarioServiceImpl;
+import ar.edu.unlam.diit.scaw.utls.AllowAnonymous;
 import ar.edu.unlam.diit.scaw.utls.Authorize;
 import ar.edu.unlam.diit.scaw.utls.SessionUtils;
 
@@ -38,21 +39,22 @@ public class UsuarioController implements Serializable {
         usuarioService = new UsuarioServiceImpl();
     }
 
+    @Authorize(roles = "Administrador")
     public String save() {
 
-        return saveUser("usuario/index","usuario/save");
+        return saveUser("usuario/index", "usuario/save");
     }
 
-    private String saveUser(String returnPath,String returnError){
+    private String saveUser(String returnPath, String returnError) {
         if (usuarioService.userExist(this.usuario.getEmail())) {
             errors.add("El usuario ya existe");
         }
 
-        if(!this.usuario.getContraseña().equals(this.usuario.getRepetirPassword())){
+        if (!this.usuario.getContraseña().equals(this.usuario.getRepetirPassword())) {
             errors.add("Las contraseñas no coinciden");
         }
 
-        if(errors.size() == 0){
+        if (errors.size() == 0) {
             usuarioService.save(this.usuario);
             return returnPath;
         }
@@ -61,27 +63,34 @@ public class UsuarioController implements Serializable {
     }
 
     public String save(String path) {
-        return saveUser(path,"login");
+        return saveUser(path, "login");
     }
 
+    @Authorize(roles = "Administrador")
     public List<Usuario> getFindAll() {
         List<Usuario> list = usuarioService.findAll();
         return list;
     }
 
+    @AllowAnonymous
     public String login() {
         Usuario logueado = usuarioService.login(this.usuario);
         if (logueado != null) {
-            switch (logueado.getEstadoId()){
-                case 1: loginErrors.add("Su usuario se encuentra pendiente de habilitacion");
+            switch (logueado.getEstadoId()) {
+                case 1:
+                    loginErrors.add("Su usuario se encuentra pendiente de habilitacion");
                     return "login";
-                case 2: SessionUtils.setUser(logueado);
+                case 2:
+                    SessionUtils.setUser(logueado);
                     return "welcome";
-                case 3: loginErrors.add("Su usuario fue rechazado");
+                case 3:
+                    loginErrors.add("Su usuario fue rechazado");
                     return "login";
-                case 4: loginErrors.add("Su usuario fue eliminado");
+                case 4:
+                    loginErrors.add("Su usuario fue eliminado");
                     return "login";
-                default: loginErrors.add("Ocurrio un error inesperado");
+                default:
+                    loginErrors.add("Ocurrio un error inesperado");
                     return "login";
             }
         } else {
@@ -90,6 +99,7 @@ public class UsuarioController implements Serializable {
         }
     }
 
+    @Authorize(roles = "Administrador")
     public String update() {
 
         usuarioService.update(this.usuario);
@@ -104,8 +114,7 @@ public class UsuarioController implements Serializable {
         return path;
     }
 
-
-
+    @Authorize(roles = "Administrador")
     public String aprobarUsuario(Integer usuarioId) {
 
         Usuario usuario = usuarioService.get(usuarioId);
@@ -117,7 +126,7 @@ public class UsuarioController implements Serializable {
         return "notfound";
     }
 
-    @Authorize(roles = "Nada")
+    @Authorize(roles = "Administrador")
     public String rechazarUsuario(Integer usuarioId) {
 
         Usuario usuario = usuarioService.get(usuarioId);
@@ -130,6 +139,7 @@ public class UsuarioController implements Serializable {
         return "notfound";
     }
 
+    @Authorize(roles = "Administrador")
     public String delete(Integer usuarioId) {
         usuarioService.delete(usuarioId);
         return "/usuario/index";

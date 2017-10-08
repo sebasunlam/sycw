@@ -43,6 +43,7 @@
                             </c:if>
                             <h:commandButton action='#{usuarioController.save("login")}' value="Ingresar"
                                              styleClass="btn btn-primary">
+                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
                             </h:commandButton>
                         </h:form>
                     </div>
@@ -74,6 +75,7 @@
                             </c:if>
                             <h:commandButton action="#{usuarioController.login}" value="Ingresar"
                                              styleClass="btn btn-primary">
+                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
                             </h:commandButton>
                         </h:form>
                     </div>

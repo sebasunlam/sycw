@@ -29,6 +29,7 @@
                         <ui:include src="form.xhtml"/>
                     </ui:insert>
                     <h:commandButton action='#{preguntaController.addRespuesta("/pregunta/update")}' value="Agregar respuesta" styleClass="btn btn-primary">
+                        <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
                     </h:commandButton>
 
                     <h:dataTable value="#{preguntaController.respuestas}" var="item"
@@ -43,6 +44,7 @@
                         </h:column>
                     </h:dataTable>
                     <h:commandButton action='#{preguntaController.update()}' value="Editar" styleClass="btn btn-primary">
+                        <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
                     </h:commandButton>
                 </h:form>
             </div>

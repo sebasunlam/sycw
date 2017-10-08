@@ -6,6 +6,7 @@ import ar.edu.unlam.diit.scaw.entities.Respuesta;
 import ar.edu.unlam.diit.scaw.entities.TipoRespuesta;
 import ar.edu.unlam.diit.scaw.services.PreguntaService;
 import ar.edu.unlam.diit.scaw.services.impl.PreguntaServiceImpl;
+import ar.edu.unlam.diit.scaw.utls.Authorize;
 
 import javax.faces.bean.*;
 import java.util.LinkedList;
@@ -35,6 +36,7 @@ public class PreguntaController {
         this.pregunta = pregunta;
     }
 
+    @Authorize(roles = "Administrador,Docente")
     public String getAll(int materiaId) {
         preguntas = preguntaService.getAll(materiaId);
         return "/pregunta/index";

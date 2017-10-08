@@ -36,6 +36,7 @@
                         </div>
                     </c:if>
                     <h:commandButton action='#{preguntaController.addRespuesta("/pregunta/save")}' value="Agregar respuesta" styleClass="btn btn-primary">
+                        <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
                     </h:commandButton>
 
                     <h:dataTable value="#{preguntaController.respuestas}" var="item"
@@ -50,6 +51,7 @@
                         </h:column>
                     </h:dataTable>
                     <h:commandButton action='#{preguntaController.save()}' value="Guardar" styleClass="btn btn-primary">
+                        <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
                     </h:commandButton>
                 </h:form>
             </div>

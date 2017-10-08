@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
 
 <h:head>
     <title>UNLAM - Sistema de evaluación</title>
@@ -17,12 +21,13 @@
         <ui:include src="/templates/navbar.xhtml"/>
     </ui:insert>
     <div class="container">
-        <div class="alert alert-info">
-            <h1>El recurso que busca no se encuentra 404</h1>
+        <div class="alert alert-warning">
+            <h1>No esta autorizado a ver este contenido</h1>
         </div>
     </div>
     <ui:insert name="scripts">
         <ui:include src="/templates/scripts.xhtml"/>
     </ui:insert>
 </h:body>
+
 </html>

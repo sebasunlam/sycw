@@ -42,17 +42,23 @@
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandButton value="Preguntas" action="#{preguntaController.getAll(examen.id)}" styleClass="btn btn-warning"/>
+                            <h:commandButton value="Preguntas" action="#{preguntaController.getAll(examen.id)}" styleClass="btn btn-warning">
+                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                            </h:commandButton>
                         </h:form>
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandButton value="Editar" action="#{examenController.editView(examen.id)}" styleClass="btn btn-info"/>
+                            <h:commandButton value="Editar" action="#{examenController.editView(examen.id)}" styleClass="btn btn-info">
+                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                            </h:commandButton>
                         </h:form>
                     </h:column>
                     <h:column>
                         <h:form>
-                            <h:commandButton value="Borrar" action="#{examenController.delete(examen.id)}" styleClass="btn btn-danger"/>
+                            <h:commandButton value="Borrar" action="#{examenController.delete(examen.id)}" styleClass="btn btn-danger">
+                                <f:actionListener type="ar.edu.unlam.diit.scaw.utls.RoleListener"/>
+                            </h:commandButton>
                         </h:form>
                     </h:column>
                 </h:dataTable>
