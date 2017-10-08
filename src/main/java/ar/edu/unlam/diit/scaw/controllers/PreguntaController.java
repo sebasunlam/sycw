@@ -6,8 +6,11 @@ import ar.edu.unlam.diit.scaw.entities.Respuesta;
 import ar.edu.unlam.diit.scaw.entities.TipoRespuesta;
 import ar.edu.unlam.diit.scaw.services.PreguntaService;
 import ar.edu.unlam.diit.scaw.services.impl.PreguntaServiceImpl;
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.ValidationException;
 
 import javax.faces.bean.*;
+import java.util.EmptyStackException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,7 +58,14 @@ public class PreguntaController {
             currentRespuesta.setIdTipoRespuesta(2);
         }
 
-        respuestas.add(this.currentRespuesta);
+        try {
+            String respuestaSafe = ESAPI.validator().getValidInput("PreguntaSavePage_curerntRespuestaField", this.currentRespuesta.getRespuesta(), "SafeString", 255, true);
+            this.currentRespuesta.setRespuesta(respuestaSafe);
+            respuestas.add(this.currentRespuesta);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+
 
         this.currentRespuesta = new Respuesta();
 

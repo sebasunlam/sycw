@@ -8,6 +8,8 @@ import ar.edu.unlam.diit.scaw.daos.impl.MateriasDaoImpl;
 import ar.edu.unlam.diit.scaw.entities.Examen;
 import ar.edu.unlam.diit.scaw.entities.Materia;
 import ar.edu.unlam.diit.scaw.services.ExamenService;
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.ValidationException;
 
 import java.util.List;
 
@@ -48,12 +50,28 @@ public class ExamenServiceImpl implements ExamenService {
 
     @Override
     public void save(Examen examen) {
-        examenHsql.save(examen);
+        try {
+            String nombre = ESAPI.validator().getValidInput("ExamenSavePage_nombreField", examen.getNombre(), "SafeString", 255, false);
+
+            examen.setNombre(nombre);
+
+            examenHsql.save(examen);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void update(Examen examen) {
-        examenHsql.update(examen);
+        try {
+            String nombre = ESAPI.validator().getValidInput("ExamenUpdatePage_nombreField", examen.getNombre(), "safeString", 255, false );
+            examen.setNombre(nombre);
+            examenHsql.update(examen);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

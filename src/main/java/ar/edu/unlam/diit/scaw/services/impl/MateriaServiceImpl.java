@@ -38,7 +38,16 @@ public class MateriaServiceImpl implements MateriaService {
 
     @Override
     public void update(Materia materia) {
-        materiasDao.update(materia);
+        try {
+            String nombre = ESAPI.validator().getValidInput("MateriaUpdate_nombreField", materia.getNombre(), "SafeString", 255, false);
+
+            materia.setNombre(nombre);
+
+            materiasDao.update(materia);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

@@ -11,6 +11,8 @@ import ar.edu.unlam.diit.scaw.entities.Examen;
 import ar.edu.unlam.diit.scaw.entities.Pregunta;
 import ar.edu.unlam.diit.scaw.services.ExamenService;
 import ar.edu.unlam.diit.scaw.services.PreguntaService;
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.ValidationException;
 
 import java.util.List;
 
@@ -27,12 +29,27 @@ public class PreguntaServiceImpl implements PreguntaService {
 
     @Override
     public void save(Pregunta pregunta) {
-        preguntaDao.save(pregunta);
+        try {
+            String preguntaSafe = ESAPI.validator().getValidInput("PreguntaSavePage_preguntaField", pregunta.getPregunta(), "SafeString", 255, false);
+            pregunta.setPregunta(preguntaSafe);
+            preguntaDao.save(pregunta);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void update(Pregunta pregunta) {
-preguntaDao.update(pregunta);
+
+        try {
+            String preguntaSafe = ESAPI.validator().getValidInput("PreguntaSavePage_preguntaField", pregunta.getPregunta(), "SafeString", 255, false);
+            pregunta.setPregunta(preguntaSafe);
+            preguntaDao.update(pregunta);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
