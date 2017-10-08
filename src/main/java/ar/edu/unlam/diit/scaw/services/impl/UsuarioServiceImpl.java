@@ -6,6 +6,7 @@ import ar.edu.unlam.diit.scaw.daos.impl.MateriasDaoImpl;
 import ar.edu.unlam.diit.scaw.daos.impl.UsuarioDaoImpl;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
 import ar.edu.unlam.diit.scaw.services.UsuarioService;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
@@ -24,6 +25,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario login(Usuario usuario) {
         //por ejemplo modificar algo del usuario, el nombre en mayuscula
+        String passwordHashed = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
+
+        usuario.setContraseña(passwordHashed);
+
         return usuarioHsql.login(usuario);
     }
 
@@ -48,6 +53,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void save(Usuario usuario) {
+
+        String passwordHashed = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
+
+        usuario.setContraseña(passwordHashed);
+
         usuarioHsql.save(usuario);
     }
 
@@ -57,6 +67,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         if(usuario.getContraseña().equals("") || usuario.getContraseña() == null){
             usuario.setContraseña(old.getContraseña());
+        }
+        else{
+            String passwordHashed = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
+
+            usuario.setContraseña(passwordHashed);
         }
 
         usuarioHsql.update(usuario);
@@ -78,8 +93,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void cambiarPassword(Integer usuarioId, String newPassword) {
 
+        String newPasswordHashed = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+
         Usuario usuario = usuarioHsql.get(usuarioId);
-        usuario.setContraseña(newPassword);
+        usuario.setContraseña(newPasswordHashed);
         usuarioHsql.update(usuario);
 
     }

@@ -9,6 +9,7 @@ import ar.edu.unlam.diit.scaw.configs.HsqlDataSource;
 import ar.edu.unlam.diit.scaw.daos.UsuarioDao;
 import ar.edu.unlam.diit.scaw.entities.Role;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UsuarioDaoImpl implements UsuarioDao {
 
