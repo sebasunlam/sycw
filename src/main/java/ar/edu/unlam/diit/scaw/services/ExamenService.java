@@ -3,6 +3,7 @@ package ar.edu.unlam.diit.scaw.services;
 import ar.edu.unlam.diit.scaw.entities.Examen;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ExamenService {
 
@@ -13,4 +14,6 @@ public interface ExamenService {
     void delete(int examenId);
 
     List<Examen> getAptoParaRendir(Integer alumnoId);
+
+    Map<String, String> calcularNotas(Integer examenId);
 }

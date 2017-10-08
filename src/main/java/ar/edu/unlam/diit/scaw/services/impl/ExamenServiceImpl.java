@@ -8,8 +8,10 @@ import ar.edu.unlam.diit.scaw.daos.impl.MateriasDaoImpl;
 import ar.edu.unlam.diit.scaw.entities.Examen;
 import ar.edu.unlam.diit.scaw.entities.Materia;
 import ar.edu.unlam.diit.scaw.services.ExamenService;
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 import java.util.List;
+import java.util.Map;
 
 public class ExamenServiceImpl implements ExamenService {
 
@@ -69,6 +71,19 @@ public class ExamenServiceImpl implements ExamenService {
             examen.setMateria(materiasDao.get(examen.getIdMateria()));
         }
         return examenes;
+    }
+
+    @Override
+    public Map<String, String> calcularNotas(Integer examenId) {
+         List<Map<String, String>> respuestas = examenHsql.getRespuestaDeAlumnos(examenId);
+
+        String idAlumno = "";
+        for (Map<String, String> respuesta: respuestas) {
+            if(idAlumno == "")
+                idAlumno = String.valueOf(respuesta.keySet());
+            System.out.println(idAlumno);
+        }
+        return null;
     }
 
     public ExamenDaoImpl getExamenHsql() {

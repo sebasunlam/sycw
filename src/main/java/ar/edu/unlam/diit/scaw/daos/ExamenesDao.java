@@ -3,6 +3,7 @@ package ar.edu.unlam.diit.scaw.daos;
 import ar.edu.unlam.diit.scaw.entities.Examen;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ExamenesDao {
     /**
@@ -34,4 +35,6 @@ public interface ExamenesDao {
     List<Examen> getAll();
 
     List<Examen> getAptoParaRendir(Integer alumnoId);
+
+    List<Map<String,String>> getRespuestaDeAlumnos(Integer examenId);
 }

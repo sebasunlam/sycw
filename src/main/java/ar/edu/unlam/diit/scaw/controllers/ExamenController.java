@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedProperty;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @ManagedBean(name = "examenController", eager = true)
 @RequestScoped
@@ -87,5 +88,10 @@ public class ExamenController implements Serializable {
     public List<Examen> getAptoParaRendir(){
         Integer alumnoId = SessionUtils.getUser().getId();
         return examenService.getAptoParaRendir(alumnoId);
+    }
+
+    public String calcularNotas(Integer examenId) {
+        Map<String, String> notas =  examenService.calcularNotas(examenId);
+        return "/examen/notas";
     }
 }
