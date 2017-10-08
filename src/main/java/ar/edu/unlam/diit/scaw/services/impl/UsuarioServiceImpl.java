@@ -27,23 +27,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario login(Usuario usuario) {
         //por ejemplo modificar algo del usuario, el nombre en mayuscula
-        String passwordHashed = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
 
-        usuario.setContraseña(passwordHashed);
+        Usuario dbUser = usuarioHsql.login(usuario);
 
-        try {
-            String password = ESAPI.validator().getValidInput("LoginPageLogin_passwordField", usuario.getContraseña(), "SafeString", 255, true );
-            String email = ESAPI.validator().getValidInput("LoginPageLogin_emailField", usuario.getEmail(), "SafeString", 255, true );
-
-            usuario.setEmail(email);
-            usuario.setContraseña(password);
-
-
-        } catch (ValidationException e) {
-            e.printStackTrace();
+        if(BCrypt.checkpw(usuario.getContraseña(), dbUser.getContraseña())){
+            return dbUser;
+        }else{
+            return null;
         }
-
-        return usuarioHsql.login(usuario);
     }
 
     @Override
@@ -68,19 +59,17 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void save(Usuario usuario) {
 
-        String passwordHashed = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
-
-        usuario.setContraseña(passwordHashed);
-
-        //TODO:VER MERGE
-    public void save(Usuario usuario)  {
         try {
-            String contraseña = ESAPI.validator().getValidInput("LoginPage_passwordFild", (usuario.getContraseña()), "SafeString", 255, false);
+
+            String passwordHashed = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
+
+            usuario.setContraseña(passwordHashed);
+
             String nombre = ESAPI.validator().getValidInput("LoginPage_nombreFild", usuario.getNombre(), "SafeString", 255, true);
             String apellido = ESAPI.validator().getValidInput("LoginPage_apellidoFild", usuario.getApellido(), "SafeString", 255, true);
             String email = ESAPI.validator().getValidInput("LoginPage_emailFild", usuario.getEmail(), "Email", 255, false);
 
-            usuario.setContraseña(contraseña);
+
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setEmail(email);

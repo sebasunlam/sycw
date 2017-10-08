@@ -8,7 +8,7 @@ public interface UsuarioService {
 	Usuario login(Usuario usuario);
 	List<Usuario> findAll();
 	Usuario get(Integer usuarioId);
-	void save(Usuario usuario) throws Exception;
+	void save(Usuario usuario);
 	void update(Usuario usuario);
 	void delete(Integer usuarioId);
 	void cambiarPassword(Integer usuarioId,String newPassword);

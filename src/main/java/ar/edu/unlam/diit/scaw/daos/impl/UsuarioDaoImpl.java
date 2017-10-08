@@ -22,9 +22,9 @@ public class UsuarioDaoImpl implements UsuarioDao {
         try {
             conn = (dataSource.dataSource()).getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Usuarios WHERE eMail = ? AND password = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Usuarios WHERE eMail = ?");
             stmt.setString(1, usuario.getEmail());
-            stmt.setString(2, usuario.getContraseña());
+
 
             ResultSet rs = stmt.executeQuery();
 
