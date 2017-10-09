@@ -29,12 +29,16 @@ public class UsuarioServiceImpl implements UsuarioService {
         //por ejemplo modificar algo del usuario, el nombre en mayuscula
 
         Usuario dbUser = usuarioHsql.login(usuario);
-
-        if(BCrypt.checkpw(usuario.getContraseña(), dbUser.getContraseña())){
-            return dbUser;
-        }else{
-            return null;
+        try{
+            if(BCrypt.checkpw(usuario.getContraseña(), dbUser.getContraseña())){
+                return dbUser;
+            }else{
+                return null;
+            }
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
         }
+        return null;
     }
 
     @Override
