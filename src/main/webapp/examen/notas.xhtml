@@ -16,9 +16,12 @@
     <ui:insert name="navbar">
         <ui:include src="../templates/navbar.xhtml" />
     </ui:insert>
-
     <div class="container">
-
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Notas de Examen</h1>
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-12">
                 <h:dataTable value="#{examenController.calcularNotas()}" var="examen"
@@ -35,10 +38,6 @@
             </div>
         </div>
     </div>
-
-
-
-
     <ui:insert name="scripts">
         <ui:include src="/templates/scripts.xhtml"/>
     </ui:insert>
