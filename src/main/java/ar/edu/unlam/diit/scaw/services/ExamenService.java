@@ -1,5 +1,6 @@
 package ar.edu.unlam.diit.scaw.services;
 
+import ar.edu.unlam.diit.scaw.entities.AlumnoResultadoExamen;
 import ar.edu.unlam.diit.scaw.entities.Examen;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public interface ExamenService {
 
     List<Examen> getAptoParaRendir(Integer alumnoId);
 
-    Map<String, String> calcularNotas(Integer examenId);
+    List<AlumnoResultadoExamen> calcularNotas(Integer examenId);
 }

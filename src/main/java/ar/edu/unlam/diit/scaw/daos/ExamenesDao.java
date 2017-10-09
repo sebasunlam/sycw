@@ -36,5 +36,4 @@ public interface ExamenesDao {
 
     List<Examen> getAptoParaRendir(Integer alumnoId);
 
-    List<Map<String,String>> getRespuestaDeAlumnos(Integer examenId);
 }
