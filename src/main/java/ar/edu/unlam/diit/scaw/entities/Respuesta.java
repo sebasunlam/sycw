@@ -10,6 +10,7 @@ public class Respuesta implements Serializable{
     private String respuesta;
     private Integer idTipoRespuesta;
     private TipoRespuesta tipo;
+    private Integer idPregunta;
     private Boolean correcta;
 
     public Integer getId() {
@@ -50,5 +51,13 @@ public class Respuesta implements Serializable{
 
     public void setIdTipoRespuesta(Integer idTipoRespuesta) {
         this.idTipoRespuesta = idTipoRespuesta;
+    }
+
+    public Integer getIdPregunta() {
+        return idPregunta;
+    }
+
+    public void setIdPregunta(Integer idPregunta) {
+        this.idPregunta = idPregunta;
     }
 }

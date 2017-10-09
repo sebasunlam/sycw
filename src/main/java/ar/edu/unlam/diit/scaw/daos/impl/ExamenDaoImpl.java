@@ -4,6 +4,7 @@ import ar.edu.unlam.diit.scaw.configs.HsqlDataSource;
 import ar.edu.unlam.diit.scaw.daos.ExamenesDao;
 import ar.edu.unlam.diit.scaw.entities.EstadoMateria;
 import ar.edu.unlam.diit.scaw.entities.Examen;
+import ar.edu.unlam.diit.scaw.entities.Respuesta;
 
 import java.sql.*;
 import java.util.*;
@@ -149,34 +150,5 @@ public class ExamenDaoImpl implements ExamenesDao {
         return examenes;
     }
 
-    @Override
-    public List<Map<String, String>> getRespuestaDeAlumnos(Integer examenId) {
-        List<Map<String, String>> notas = new ArrayList<>();
 
-        try {
-            conn = (dataSource.dataSource()).getConnection();
-
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM RESPUESTAALUMNO AS ra" +
-                    " JOIN RESPUESTAs AS r ON ra.IDRESPUESTA = r.ID" +
-                    " JOIN PREGUNTAS AS p ON r.IDPREGUNTA = p.ID" +
-                    " WHERE p.IDEXAMEN = ?" +
-                    " ORDER BY ra.IDALUMNO ASC");
-
-            stmt.setInt(1, examenId);
-
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Map<String, String> respuesta = new HashMap<String, String>();
-                respuesta.put(rs.getString("IDALUMNO"), rs.getString("IDRESPUESTA"));
-                notas.add(respuesta);
-            }
-
-            conn.close();
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return notas;
-    }
 }

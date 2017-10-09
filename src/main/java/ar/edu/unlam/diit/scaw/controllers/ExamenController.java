@@ -1,5 +1,6 @@
 package ar.edu.unlam.diit.scaw.controllers;
 
+import ar.edu.unlam.diit.scaw.entities.AlumnoResultadoExamen;
 import ar.edu.unlam.diit.scaw.entities.Examen;
 import ar.edu.unlam.diit.scaw.entities.Pregunta;
 import ar.edu.unlam.diit.scaw.entities.Usuario;
@@ -74,7 +75,7 @@ public class ExamenController implements Serializable {
     public String get(Integer Id, String path) {
         this.examen = examenService.get(Id);
 
-        if (examen == null) {
+        if (this.examen == null) {
             return "/notfound";
         }
         return path;
@@ -87,7 +88,7 @@ public class ExamenController implements Serializable {
 
     @Authorize(roles = "Docente")
     public String editView(Integer id) {
-        examen = examenService.get(id);
+        this.examen = examenService.get(id);
         return "/examen/update";
     }
 
@@ -97,8 +98,12 @@ public class ExamenController implements Serializable {
         return examenService.getAptoParaRendir(alumnoId);
     }
 
-    public String calcularNotas(Integer examenId) {
-        Map<String, String> notas =  examenService.calcularNotas(examenId);
+    public List<AlumnoResultadoExamen>  calcularNotas() {
+        List<AlumnoResultadoExamen>  notas =  examenService.calcularNotas(this.examen.getId());
+        return notas;
+    }
+    public String navigateNota(Integer examenId){
+        this.examen = examenService.get(examenId);
         return "/examen/notas";
     }
 }

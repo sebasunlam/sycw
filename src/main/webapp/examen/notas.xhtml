@@ -2,11 +2,46 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Title</title>
+    <ui:insert name="header">
+        <ui:include src="../templates/header.xhtml"/>
+    </ui:insert>
+</h:head>
+<h:body>
+    <ui:insert name="navbar">
+        <ui:include src="../templates/navbar.xhtml" />
+    </ui:insert>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h:dataTable value="#{examenController.calcularNotas()}" var="examen"
+                             styleClass="table table-striped">
+                    <h:column>
+                        <f:facet name="header">Alumno</f:facet>
+                        #{examen.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Nota</f:facet>
+                        #{examen.nota}
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <ui:insert name="scripts">
+        <ui:include src="/templates/scripts.xhtml"/>
+    </ui:insert>
+    <script src="../js/bootstrap-.js" type="text/javascript"></script>
+</h:body>
 </html>
