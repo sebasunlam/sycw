@@ -9,6 +9,7 @@ import ar.edu.unlam.diit.scaw.services.UsuarioService;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
+
 import org.owasp.esapi.ESAPI;
 import org.owasp.esapi.errors.ValidationException;
 
@@ -29,15 +30,16 @@ public class UsuarioServiceImpl implements UsuarioService {
         //por ejemplo modificar algo del usuario, el nombre en mayuscula
 
         Usuario dbUser = usuarioHsql.login(usuario);
-        try{
-            if(BCrypt.checkpw(usuario.getContraseña(), dbUser.getContraseña())){
-                return dbUser;
-            }else{
-                return null;
+        if (dbUser != null)
+            try {
+                if (BCrypt.checkpw(usuario.getContraseña(), dbUser.getContraseña())) {
+                    return dbUser;
+                } else {
+                    return null;
+                }
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
             }
-        }catch (IllegalArgumentException e){
-            e.printStackTrace();
-        }
         return null;
     }
 
@@ -45,7 +47,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public List<Usuario> findAll() {
 
         List<Usuario> usuarios = usuarioHsql.findAll();
-        for (Usuario usuario: usuarios) {
+        for (Usuario usuario : usuarios) {
             usuario.setEstado(estadoUsuarioDao.get(usuario.getEstadoId()));
         }
 
@@ -90,10 +92,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void update(Usuario usuario) {
         Usuario old = get(usuario.getId());
 
-        if(usuario.getContraseña().equals("") || usuario.getContraseña() == null){
+        if (usuario.getContraseña().equals("") || usuario.getContraseña() == null) {
             usuario.setContraseña(old.getContraseña());
-        }
-        else{
+        } else {
             String passwordHashed = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
 
             usuario.setContraseña(passwordHashed);
@@ -128,7 +129,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void cambiarEstadoUsuario(Integer usuarioId, Integer estadoUsuarioId) {
-        usuarioHsql.cambiarEstado(usuarioId,estadoUsuarioId);
+        usuarioHsql.cambiarEstado(usuarioId, estadoUsuarioId);
     }
 
     @Override
